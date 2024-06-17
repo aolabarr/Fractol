@@ -19,24 +19,33 @@
 
 typedef unsigned char byte;
 
+typedef struct s_image
+{
+	void	*ptr;
+	void	*pix_ptr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}				t_image;
+
 typedef struct s_mlx_data
 {
 	void	*mlx;
 	void	*win;
-	t_img	img;
+	t_image	img;
 }			t_mlx_data;
 
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
 # define INPUT_MESSAGE "instrucciones"
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 100
+# define HEIGHT 100
 
 int		mandelbrot(void);
 void	julia(void);
 int		handle_input(int key, t_mlx_data *data);
-void	image_color(t_img img, int color);
+void	image_color(t_image img, int color);
 int	encode_rgb(byte red, byte green, byte blue);
 
 

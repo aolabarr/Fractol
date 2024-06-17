@@ -34,12 +34,9 @@ int	main(int ac, char **av)
 int mandelbrot(void)
 {
 	t_mlx_data	data;
-	int			endian;
 
-	endian = 0;
 	ft_putstr_fd("Mandelbrot fractal INICIO\n", STDOUT_FILENO);
 	data.mlx = mlx_init();
-	printf("mlx dir: %p\n", data.mlx);
 	if (!data.mlx)
 		return (MALLOC_ERROR);
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Mandelbrot Fractal");
@@ -50,13 +47,13 @@ int mandelbrot(void)
 		free(data.mlx);
 		return (MALLOC_ERROR);
 	}
-	data.img.image = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-	printf("IMG - %p\t%d\t%d\n",data.img.data, data.img.size_line, data.img.bpp);
-	data.img.data = mlx_get_data_addr(data.img.image,
-									&data.img.bpp,
-									&data.img.size_line,
-									&endian);
-	printf("IMG - %p\t%d\t%d\n",data.img.data, data.img.size_line, data.img.bpp);
+	data.img.ptr = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	//printf("IMG - %p\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp);
+	data.img.pix_ptr = mlx_get_data_addr(data.img.ptr,
+											&data.img.bpp,
+											&data.img.line_len,
+											&data.img.endian);
+	//printf("IMG - %p\t%d\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp, data.img.endian);
 	mlx_key_hook(data.win, handle_input, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
@@ -88,15 +85,16 @@ int	handle_input(int key, t_mlx_data *data)
 		image_color(data->img, encode_rgb(0, 255, 0));
 	else if (key == XK_b)
 		image_color(data->img, encode_rgb(0, 0, 255));
-	mlx_put_image_to_window(data->mlx, data->win, (void *)data->img.image, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	return (0);
 }
 
-void image_color(t_img img, int color)
+void image_color(t_image img, int color)
 {
 	//printf("Prueba 002\n");
 	int		x;
 	int		y;
+	int		offset;
 
 	x = 1;
 	while (x <= WIDTH)
@@ -104,9 +102,8 @@ void image_color(t_img img, int color)
 		y = 1;
 		while (y <= HEIGHT)
 		{
-			//printf("x: %d, y: %d\n", x, y);
-			//printf("%p\t%d\t%d\n",img.data, img.size_line, img.bpp);
-			*(img.data + (img.size_line * y) + x * (img.bpp / 8)) = color;
+			offset = (img.line_len * y) + x * (img.bpp / 8);
+			*(int *)(img.pix_ptr + offset) = color;
 			y++;
 		}
 		x++;
@@ -117,3 +114,4 @@ int	encode_rgb(byte red, byte green, byte blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
+
