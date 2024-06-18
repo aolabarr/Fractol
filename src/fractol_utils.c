@@ -12,7 +12,10 @@
 
 #include "fractol.h"
 
-int pow2(float num)
+int pow2(double num)
 {
-    return (num * num);
+    double  dst;
+
+    dst = num * num;
+    return (dst);
 }

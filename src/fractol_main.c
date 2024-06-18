@@ -55,7 +55,7 @@ int mandelbrot(void)
 											&data.img.endian);
 	data.img.com_map = NULL;
 	data.img.iter_map = NULL;
-	printf("IMG - %p\t%d\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp, data.img.endian);
+	//printf("IMG - %p\t%d\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp, data.img.endian);
 	mlx_key_hook(data.win, handle_input_mandelbrot, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
@@ -105,7 +105,7 @@ void image_color(t_image img, int **iter_map)
 	int color;
 
 	x = 1;
-	color = YELLOW;
+	color = BLUE;
 	while (x < WIDTH)
 	{
 		//printf("Prueba 600\tx: %d\n", x);
@@ -114,7 +114,7 @@ void image_color(t_image img, int **iter_map)
 		{	
 			//printf("Prueba 700\titer: %d\n", iter_map[x][y]);
 			offset = (img.line_len * y) + x * (img.bpp / 8);
-			if (iter_map[x][y])
+			if (iter_map[y][x] != MAXITER)
 				*(int *)(img.pix_ptr + offset) = color * iter_map[x][y];
 			else
 				*(int *)(img.pix_ptr + offset) = BLACK;

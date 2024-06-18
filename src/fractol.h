@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include "../lib/libft/libft.h"
+#include "../lib/libft/src/libft.h"
 #include "../lib/minilibx-linux/mlx_int.h"
 #include "../lib/minilibx-linux/mlx.h"
 
@@ -49,11 +49,11 @@ typedef struct s_mlx_data
 # define MALLOC_ERROR 1
 # define INPUT_MESSAGE "instrucciones"
 
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 1000
+# define HEIGHT 1000
 
 # define MAXITER 100
-# define ESC_RAD 4
+# define ESC_RAD 4.0
 # define DOM_MIN -2.0
 # define DOM_MAX 2.0
 
@@ -81,8 +81,8 @@ int		encode_rgb(byte red, byte green, byte blue);
 // MANDELBROT
 int     **get_iter_map(t_complex **c_map);
 t_complex   **get_complex_map(void);
-int			calculate_iterations(t_complex c);
-int			pow2(float num);
+int			mandel_iterations(t_complex c);
+int			pow2(double num);
 
 
 #endif
