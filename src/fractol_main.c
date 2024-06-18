@@ -117,7 +117,7 @@ void image_color(t_image img, int **iter_map)
 			if (iter_map[x][y])
 				*(int *)(img.pix_ptr + offset) = color * iter_map[x][y];
 			else
-				*(int *)(img.pix_ptr + offset) = YELLOW;
+				*(int *)(img.pix_ptr + offset) = BLACK;
 			y++;
 		}
 		x++;

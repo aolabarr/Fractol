@@ -21,8 +21,8 @@ typedef unsigned char byte;
 
 typedef struct s_complex
 {
-	float	real;
-	float	i;
+	double	real;
+	double	i;
 }			t_complex;
 
 typedef struct s_image
@@ -53,9 +53,9 @@ typedef struct s_mlx_data
 # define HEIGHT 600
 
 # define MAXITER 100
-# define ESC_RAD 100
-# define DOM_MIN -2
-# define DOM_MAX 2
+# define ESC_RAD 4
+# define DOM_MIN -2.0
+# define DOM_MAX 2.0
 
 #define RED         0xFF0000 // Rojo
 #define GREEN       0x00FF00 // Verde
