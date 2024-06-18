@@ -57,6 +57,7 @@ int mandelbrot(void)
 	data.img.iter_map = NULL;
 	//printf("IMG - %p\t%d\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp, data.img.endian);
 	mlx_key_hook(data.win, handle_input_mandelbrot, &data);
+	mlx_loop_hook(data.mlx, render_mandelbrot, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
 	mlx_destroy_display(data.mlx);
@@ -71,6 +72,13 @@ void julia(void)
 	return ;
 }
 
+int render_mandelbrot(t_mlx_data *data)
+{
+	create_mandelbrot_image(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
+	return (0);
+}
+
 int	handle_input_mandelbrot(int key, t_mlx_data *data)
 {
 	if (key == XK_Escape)
@@ -81,19 +89,6 @@ int	handle_input_mandelbrot(int key, t_mlx_data *data)
 		free(data->mlx);
 		exit(1);
 	}
-	if (key == XK_r)
-	{
-		printf("Prueba 100\n");
-		data->img.com_map = get_complex_map();
-		printf("Prueba 200\n");
-		data->img.iter_map = get_iter_map(data->img.com_map);
-		printf("Prueba 300\n");
-		image_color(data->img, data->img.iter_map);
-		printf("Prueba 400\n");
-	}
-	printf("Prueba 500\n");
-	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
-	printf("Prueba 600\n");
 	return (0);
 }
 
@@ -102,10 +97,12 @@ void image_color(t_image img, int **iter_map)
 	int		x;
 	int		y;
 	int		offset;
-	int color;
+	int		color1;
+	int		color2;
 
 	x = 1;
-	color = BLUE;
+	color1 = YELLOW;
+	color2 = BLUE;
 	while (x < WIDTH)
 	{
 		//printf("Prueba 600\tx: %d\n", x);
@@ -115,7 +112,7 @@ void image_color(t_image img, int **iter_map)
 			//printf("Prueba 700\titer: %d\n", iter_map[x][y]);
 			offset = (img.line_len * y) + x * (img.bpp / 8);
 			if (iter_map[y][x] != MAXITER)
-				*(int *)(img.pix_ptr + offset) = color * iter_map[x][y];
+				*(int *)(img.pix_ptr + offset) = (color1 + color2) / 2 * iter_map[y][x];
 			else
 				*(int *)(img.pix_ptr + offset) = BLACK;
 			y++;
@@ -128,4 +125,5 @@ int	encode_rgb(byte red, byte green, byte blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
+
 

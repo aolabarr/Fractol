@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_utils.c                                    :+:      :+:    :+:   */
+/*   ft_free_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 18:07:06 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/17 18:07:06 by marvin           ###   ########.fr       */
+/*   Created: 2024/06/18 23:07:45 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/18 23:07:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-double pow2(double num)
+void	ft_mat_free(char **mat, size_t size)
 {
-    return (num * num);
-}
-
-int	max_int_mat(int **matrix, int y, int x)
-{
-	int max;
-    int i;
-    int j;
-
-	max = INT_MIN;
-    i = 0;
-    while (i < y)
-    {
-        j = 0;
-        while (j < x)
-        {
-            if (matrix[j][i] > max)
-                max = matrix[j][i];
-            j++;
-        }
-        i++;  
-    }
-    return (max);
+	while (size)
+	{
+		free(mat[size]);
+		size--;
+	}
+	free(mat[0]);
+	free(mat);
+	return ;
 }

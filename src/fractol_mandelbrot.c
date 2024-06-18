@@ -12,6 +12,13 @@
 
 #include "fractol.h"
 
+void    create_mandelbrot_image(t_mlx_data *data)
+{
+    data->img.com_map = get_complex_map();
+	data->img.iter_map = get_iter_map(data->img.com_map);
+	image_color(data->img, data->img.iter_map);
+    return ;
+}
 int     **get_iter_map(t_complex **c_map)
 {
     int **map;
@@ -24,25 +31,16 @@ int     **get_iter_map(t_complex **c_map)
     while (y < HEIGHT)
         map[y++] = malloc(sizeof(int) * WIDTH);
     y = 0;
-    printf("Prueba 1000\n");
     while (y < HEIGHT)
     {
         x = 0;
         while (x < WIDTH)
         {
-            //printf("(x,y)=(%d,%d)\n", x , y);
             map[y][x] = mandel_iterations(c_map[y][x]);
-			if (map[y][x] == MAXITER)
-				printf("IN TO MANDELBROT\n");
-            //else
-             //   printf("(x,y)=(%d,%d)\t iter= %d\n", x, y, map[y][x]);
-            //if (x % 100 == 0)
-              //  getchar();
             x++;
         }
         y++;
     }
-
     return (map);
 }
 
@@ -67,7 +65,6 @@ t_complex   **get_complex_map(void)
         {
             map[y][x].real = DOM_MIN + (DOM_MAX - DOM_MIN) / WIDTH * x;
             map[y][x].i = DOM_MAX - (DOM_MAX - DOM_MIN) / HEIGHT * y;
-            //printf("(x,y)=(%d,%d)\t complex=(%f,%f)\n", x, y, map[y][x].real, map[y][x].i);
             x++;
         }
         y++;
@@ -94,8 +91,6 @@ int mandel_iterations(t_complex C)
         mod_pw2 = pow2(Z.real) + pow2(Z.i);
         iter++;
     }
-    if (mod_pw2 < ESC_RAD)
-        printf("iter: %d\tmod: %f\treal: %f\timg: %f\n", iter, mod_pw2, Z.real, Z.i);
     return (iter);
 }
 

@@ -49,8 +49,10 @@ typedef struct s_mlx_data
 # define MALLOC_ERROR 1
 # define INPUT_MESSAGE "instrucciones"
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define INT_MIN -2147483648
+
+# define WIDTH 500
+# define HEIGHT 500
 
 # define MAXITER 100
 # define ESC_RAD 4.0
@@ -77,12 +79,14 @@ void	julia(void);
 int		handle_input_mandelbrot(int key, t_mlx_data *data);
 void	image_color(t_image img, int **iter_map);
 int		encode_rgb(byte red, byte green, byte blue);
+void    create_mandelbrot_image(t_mlx_data *data);
+int		render_mandelbrot(t_mlx_data *data);
 
 // MANDELBROT
 int     **get_iter_map(t_complex **c_map);
 t_complex   **get_complex_map(void);
 int			mandel_iterations(t_complex c);
-int			pow2(double num);
+double			pow2(double num);
 
 
 #endif

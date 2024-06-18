@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:24:29 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/13 23:35:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 23:17:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-size_t	ft_matlen(char **str);
 int		ft_str_is_numeric(char *str);
+void	ft_mat_free(char **mat, size_t size);
+size_t	ft_matsize(char **str);
 #endif
