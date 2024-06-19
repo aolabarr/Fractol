@@ -16,7 +16,11 @@ void    create_mandelbrot_image(t_mlx_data *data)
 {
     data->img.com_map = get_complex_map();
 	data->img.iter_map = get_iter_map(data->img.com_map);
-	image_color(data->img, data->img.iter_map);
+    ft_tcomplex_mat_free(data->img.com_map, HEIGHT);
+	put_color_image(data->img, data->img.iter_map);
+    ft_int_mat_free(data->img.iter_map, HEIGHT);
+    //rintf("%p\t%p\n", data->mlx, data->img.ptr);
+    //mlx_destroy_image(data->mlx, data->img.ptr);
     return ;
 }
 int     **get_iter_map(t_complex **c_map)

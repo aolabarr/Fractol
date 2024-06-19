@@ -74,6 +74,7 @@ void julia(void)
 
 int render_mandelbrot(t_mlx_data *data)
 {
+	
 	create_mandelbrot_image(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	return (0);
@@ -89,10 +90,14 @@ int	handle_input_mandelbrot(int key, t_mlx_data *data)
 		free(data->mlx);
 		exit(1);
 	}
+	if (key == XK_r)
+	{
+		mlx_destroy_image(data->mlx, data->img.ptr);
+	}
 	return (0);
 }
 
-void image_color(t_image img, int **iter_map)
+void put_color_image(t_image img, int **iter_map)
 {
 	int		x;
 	int		y;

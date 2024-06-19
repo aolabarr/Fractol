@@ -38,3 +38,27 @@ int	max_int_mat(int **matrix, int y, int x)
     }
     return (max);
 }
+
+void    ft_int_mat_free(int **mat, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        free(mat[i++]);
+    free(mat);
+    mat = NULL;
+    return ;
+}
+
+void    ft_tcomplex_mat_free(t_complex **mat, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        free(mat[i++]);
+    free(mat);
+    mat = NULL;
+    return ;
+}

@@ -77,7 +77,7 @@ typedef struct s_mlx_data
 int		mandelbrot(void);
 void	julia(void);
 int		handle_input_mandelbrot(int key, t_mlx_data *data);
-void	image_color(t_image img, int **iter_map);
+void	put_color_image(t_image img, int **iter_map);
 int		encode_rgb(byte red, byte green, byte blue);
 void    create_mandelbrot_image(t_mlx_data *data);
 int		render_mandelbrot(t_mlx_data *data);
@@ -87,6 +87,9 @@ int     **get_iter_map(t_complex **c_map);
 t_complex   **get_complex_map(void);
 int			mandel_iterations(t_complex c);
 double			pow2(double num);
+
+void    ft_int_mat_free(int **mat, int size);
+void    ft_tcomplex_mat_free(t_complex **mat, int size);
 
 
 #endif
