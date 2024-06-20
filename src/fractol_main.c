@@ -74,7 +74,16 @@ void julia(void)
 
 int render_mandelbrot(t_mlx_data *data)
 {
-	
+	if (data->img.ptr)
+		mlx_destroy_image(data->mlx, data->img.ptr);
+	data->img.ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	//printf("IMG - %p\t%d\t%d\n",data.img.pix_ptr, data.img.line_len, data.img.bpp);
+	data->img.pix_ptr = mlx_get_data_addr(data->img.ptr,
+											&data->img.bpp,
+											&data->img.line_len,
+											&data->img.endian);
+	data->img.com_map = NULL;
+	data->img.iter_map = NULL;
 	create_mandelbrot_image(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	return (0);
@@ -85,14 +94,26 @@ int	handle_input_mandelbrot(int key, t_mlx_data *data)
 	if (key == XK_Escape)
 	{
 		ft_putstr_fd("ESC key has been pressed\n", STDOUT_FILENO);
+		if (data->img.com_map)
+		{
+			ft_tcomplex_mat_free(data->img.com_map, HEIGHT);
+			data->img.com_map = NULL;
+		}
+			
+		if (data->img.iter_map)
+		{
+			ft_int_mat_free(data->img.iter_map, HEIGHT);
+			data->img.iter_map = NULL;
+		}
+		if (data->img.ptr)
+        {
+            mlx_destroy_image(data->mlx, data->img.ptr);
+            data->img.ptr = NULL;
+        }
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 		exit(1);
-	}
-	if (key == XK_r)
-	{
-		mlx_destroy_image(data->mlx, data->img.ptr);
 	}
 	return (0);
 }
