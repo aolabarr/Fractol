@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_utils.c                                    :+:      :+:    :+:   */
+/*   fractol_mem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/21 12:48:29 by aolabarr         ###   ########.fr       */
+/*   Created: 2024/06/21 12:15:11 by aolabarr          #+#    #+#             */
+/*   Updated: 2024/06/21 12:17:59 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double pow2(double num)
+void    ft_int_mat_free(int **mat, int size)
 {
-    return (num * num);
+    int i;
+
+    i = 0;
+    while (i < size)
+        free(mat[i++]);
+    free(mat);
+    mat = NULL;
+    return ;
 }
 
-int	max_int_mat(int **matrix, int y, int x)
+void    ft_tcomplex_mat_free(t_complex **mat, int size)
 {
-	int max;
     int i;
-    int j;
 
-	max = INT_MIN;
     i = 0;
-    while (i < y)
-    {
-        j = 0;
-        while (j < x)
-        {
-            if (matrix[j][i] > max)
-                max = matrix[j][i];
-            j++;
-        }
-        i++;  
-    }
-    return (max);
+    while (i < size)
+        free(mat[i++]);
+    free(mat);
+    mat = NULL;
+    return ;
 }

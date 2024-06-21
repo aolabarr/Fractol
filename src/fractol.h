@@ -28,7 +28,7 @@ typedef struct s_complex
 typedef struct s_image
 {
 	void	*ptr;
-	void	*pix_ptr;
+	void	*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -76,11 +76,13 @@ typedef struct s_mlx_data
 
 int		mandelbrot(void);
 void	julia(void);
-int		handle_input_mandelbrot(int key, t_mlx_data *data);
+int	handle_key_input_mandel(int key, t_mlx_data *data);
 void	put_color_image(t_image img, int **iter_map);
 int		encode_rgb(byte red, byte green, byte blue);
 void    create_mandelbrot_image(t_mlx_data *data);
 int		render_mandelbrot(t_mlx_data *data);
+void	initial_set_data(t_mlx_data *data);
+void	*new_window(t_mlx_data *data, char *title);
 
 // MANDELBROT
 int     **get_iter_map(t_complex **c_map);

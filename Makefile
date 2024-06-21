@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/06/17 19:06:55 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/21 13:03:13 by aolabarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,13 @@ LIBFT_DIR = ./lib/libft
 LIBMLX_DIR = ./lib/minilibx-linux
 
 SRC =	fractol_main.c\
-		fractol_mandelbrot.c\
+		fractol_mandel.c\
+		fractol_mandel_2.c\
 		fractol_utils.c\
+		fractol_mem.c \
+		fractol_libx.c\
+		fractol_color.c\
 		
-
 SRC_BONUS = 
 
 SRC_BONUS_AUX = 
