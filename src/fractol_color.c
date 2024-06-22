@@ -6,33 +6,33 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/21 13:02:24 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:15:31 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void put_color_image(t_image img, int **iter_map)
+void put_color_image(t_image img, int **iter_map, int *pal)
 {
 	int		x;
 	int		y;
 	int		offset;
-	int		color1;
-	int		color2;
+	double	norm_iter;
 
 	x = 1;
-	color1 = YELLOW;
-	color2 = BLUE;
 	while (x < WIDTH)
 	{
-		//printf("Prueba 600\tx: %d\n", x);
 		y = 1;
 		while (y < HEIGHT)
 		{	
-			//printf("Prueba 700\titer: %d\n", iter_map[x][y]);
 			offset = (img.line_len * y) + x * (img.bpp / 8);
 			if (iter_map[y][x] != MAXITER)
-				*(int *)(img.addr + offset) = (color1 + color2) / 2 * iter_map[y][x];
+			{
+				norm_iter = (double)iter_map[y][x] / MAXITER * 10;
+				//printf("iter normalized: %f\n", norm_iter);
+				*(int *)(img.addr + offset) = interpolated_color(norm_iter, pal);
+				//*(int *)(img.addr + offset) = YELLOW + (int)norm_iter * 0 + pal[0] * 0;
+			}	
 			else
 				*(int *)(img.addr + offset) = BLACK;
 			y++;
@@ -40,8 +40,34 @@ void put_color_image(t_image img, int **iter_map)
 		x++;
 	}		
 }
-
-int	encode_rgb(byte red, byte green, byte blue)
+int *color_palette(void)
 {
-	return (red << 16 | green << 8 | blue);
+	int	*colors;
+
+	colors = malloc(sizeof(int) * 11);
+	if (!colors)
+		return (NULL);
+	colors[0] = COLOR_0;
+	colors[1] = COLOR_1;
+	colors[2] = COLOR_2;
+	colors[3] = COLOR_3;
+	colors[4] = COLOR_4;
+	colors[5] = COLOR_5;
+	colors[6] = COLOR_6;
+	colors[7] = COLOR_7;
+	colors[8] = COLOR_8;
+	colors[9] = COLOR_9;
+	colors[10] = COLOR_10;
+	return (colors);
+}
+int	interpolated_color(double value, int *palette)
+{
+	double	c1;
+	double	c2;
+	int		color;
+
+	c1 = palette[(int)trunc(value)];
+	c2 = palette[(int)ceil(value)];
+	color = (int)trunc(c1 + (c2 - c1) * (value - trunc(value)));
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:47:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 14:15:01 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:23:57 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@ int render_mandelbrot(t_mlx_data *data)
 
 int    create_mandelbrot_image(t_mlx_data *data)
 {
+    int *palette;
     get_complex_map(data);
 	if (get_iter_map(data) == MALLOC_ERROR)
 		return (MALLOC_ERROR);
-	put_color_image(data->img, data->img.iter_map);
+    palette = color_palette();
+	if (!palette)
+		return (MALLOC_ERROR);
+	put_color_image(data->img, data->img.iter_map, palette);
+    free(palette);
 	ft_free_mat_tcomplex(data->img.com_map, HEIGHT);
     ft_free_mat_int(data->img.iter_map, HEIGHT);
     data->img.com_map = NULL;

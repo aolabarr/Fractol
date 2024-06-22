@@ -19,10 +19,7 @@
 
 // LIBFT 	stdlib.h unistd.h
 // MINILIBX stdlib.h unistd.h stdio.h string.h fcntl.h
-
 #include <math.h>
-
-typedef unsigned char byte;
 
 typedef struct s_complex
 {
@@ -50,21 +47,35 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 
-
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
 # define INPUT_MESSAGE "instrucciones"
 
 # define INT_MIN -2147483648
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 100
+# define HEIGHT 100
 
-# define MAXITER 100
+# define MAXITER 10
 # define ESC_RAD 4.0
 # define DOM_MIN -2.0
-# define DOM_MAX 2.0
+# define DOM_MAX 2
 
+//Color palette - divergent points
+#define COLOR_0  0x00FFFF  // Cyan
+#define COLOR_1  0x007FFF  // Azure
+#define COLOR_2  0x0000FF  // Blue
+#define COLOR_3  0x3F00FF  // Blue-Violet
+#define COLOR_4  0x7F00FF  // Violet
+#define COLOR_5  0xBF00FF  // Purple
+#define COLOR_6  0xFF0000  // Red
+#define COLOR_7  0xFF3F00  // Red-Orange
+#define COLOR_8  0xFF7F00  // Orange
+#define COLOR_9  0xFFBF00  // Amber
+#define COLOR_10 0xFFFF00  // Yellow (near convergence points)
+
+
+//Color palette - covergent points
 #define RED         0xFF0000 // Rojo
 #define GREEN       0x00FF00 // Verde
 #define BLUE        0x0000FF // Azul
@@ -96,16 +107,20 @@ void		*new_window(t_mlx_data *data, char *title);
 int     	get_iter_map(t_mlx_data *data);
 int			get_complex_map(t_mlx_data *data);
 int			mandel_iterations(t_complex c);
-double		pow2(double num);
+
 
 // COLOR
-void		put_color_image(t_image img, int **iter_map);
-int			encode_rgb(byte red, byte green, byte blue);
+void		put_color_image(t_image img, int **iter_map, int *palette);
+int			*color_palette(void);
 
 // MEM
-void		ft_free_mat_int(int **mat, int size);
-void		ft_free_mat_tcomplex(t_complex **mat, int size);
-int			**ft_malloc_mat_int(int x, int y);
-int			**ft_malloc_mat_tcomplex(int x, int y);
+void	ft_free_mat_int(int **mat, int size);
+void	ft_free_mat_tcomplex(t_complex **mat, int size);
+int		**ft_malloc_mat_int(int x, int y);
+int		**ft_malloc_mat_tcomplex(int x, int y);
+int		interpolated_color(double value, int *palette);
+//UTILS
+double		pow2(double num);
+int	max_int_mat(int **matrix, int x, int y);
 
 #endif
