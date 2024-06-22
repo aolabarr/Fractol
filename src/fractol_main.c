@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/21 13:02:27 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:39:03 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	{
 		stop = mandelbrot();
 		if (stop)
-			return (EXIT_FAILURE);
+			return (perror(INPUT_MESSAGE), EXIT_FAILURE);
 	}	
 	else if (ac == 2 && !ft_strncmp(av[1], "julia", 10))
 		julia();
@@ -42,7 +42,6 @@ int mandelbrot(void)
 		return (MALLOC_ERROR);
 	if (!new_window(&data, "Mandelbrot Fractal"))
 		return (MALLOC_ERROR);
-	
 	mlx_key_hook(data.win, handle_key_input_mandel, &data);
 	mlx_loop_hook(data.mlx, render_mandelbrot, &data);
 	mlx_loop(data.mlx);

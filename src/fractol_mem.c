@@ -6,13 +6,13 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:15:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/21 12:17:59 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 14:14:39 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void    ft_int_mat_free(int **mat, int size)
+void    ft_free_mat_int(int **mat, int size)
 {
     int i;
 
@@ -24,7 +24,7 @@ void    ft_int_mat_free(int **mat, int size)
     return ;
 }
 
-void    ft_tcomplex_mat_free(t_complex **mat, int size)
+void    ft_free_mat_tcomplex(t_complex **mat, int size)
 {
     int i;
 
@@ -35,3 +35,42 @@ void    ft_tcomplex_mat_free(t_complex **mat, int size)
     mat = NULL;
     return ;
 }
+
+int	**ft_malloc_mat_int(int x, int y)
+{
+	int **map;
+	int	i;
+
+    map = malloc(sizeof(int *) * y);
+	if (!map)
+		return(NULL);
+    i = 0;
+    while (i < y)
+	{
+		map[i] = malloc(sizeof(int) * x);
+		if (!map[i])
+			return (ft_free_mat_int(map, i), NULL);
+		i++;
+	}
+	return (map);
+}
+
+int	**ft_malloc_mat_tcomplex(int x, int y)
+{
+	int **map;
+	int	i;
+
+    map = malloc(sizeof(t_complex *) * y);
+	if (!map)
+		return(NULL);
+    i = 0;
+    while (i < y)
+	{
+		map[i] = malloc(sizeof(t_complex) * x);
+		if (!map[i])
+			return (ft_free_mat_int(map, i), NULL);
+		i++;
+	}
+	return (map);
+}
+

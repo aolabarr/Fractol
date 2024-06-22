@@ -17,6 +17,11 @@
 #include "../lib/minilibx-linux/mlx_int.h"
 #include "../lib/minilibx-linux/mlx.h"
 
+// LIBFT 	stdlib.h unistd.h
+// MINILIBX stdlib.h unistd.h stdio.h string.h fcntl.h
+
+#include <math.h>
+
 typedef unsigned char byte;
 
 typedef struct s_complex
@@ -27,12 +32,13 @@ typedef struct s_complex
 
 typedef struct s_image
 {
-	void	*ptr;
-	void	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		**iter_map;
+	void		*ptr;
+	void		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			update;
+	int			**iter_map;
 	t_complex	**com_map;
 }				t_image;
 
@@ -51,8 +57,8 @@ typedef struct s_mlx_data
 
 # define INT_MIN -2147483648
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1000
+# define HEIGHT 1000
 
 # define MAXITER 100
 # define ESC_RAD 4.0
@@ -74,24 +80,32 @@ typedef struct s_mlx_data
 #define BLACK       0x000000 // Negro
 
 
-int		mandelbrot(void);
-void	julia(void);
-int	handle_key_input_mandel(int key, t_mlx_data *data);
-void	put_color_image(t_image img, int **iter_map);
-int		encode_rgb(byte red, byte green, byte blue);
-void    create_mandelbrot_image(t_mlx_data *data);
-int		render_mandelbrot(t_mlx_data *data);
-void	initial_set_data(t_mlx_data *data);
-void	*new_window(t_mlx_data *data, char *title);
+int			mandelbrot(void);
+void		julia(void);
 
 // MANDELBROT
-int     **get_iter_map(t_complex **c_map);
-t_complex   **get_complex_map(void);
+int			render_mandelbrot(t_mlx_data *data);
+int			handle_key_input_mandel(int key, t_mlx_data *data);
+int			create_mandelbrot_image(t_mlx_data *data);
+
+// LIBX
+void		initial_set_data(t_mlx_data *data);
+void		*new_window(t_mlx_data *data, char *title);
+
+// MANDELBROT 2
+int     	get_iter_map(t_mlx_data *data);
+int			get_complex_map(t_mlx_data *data);
 int			mandel_iterations(t_complex c);
-double			pow2(double num);
+double		pow2(double num);
 
-void    ft_int_mat_free(int **mat, int size);
-void    ft_tcomplex_mat_free(t_complex **mat, int size);
+// COLOR
+void		put_color_image(t_image img, int **iter_map);
+int			encode_rgb(byte red, byte green, byte blue);
 
+// MEM
+void		ft_free_mat_int(int **mat, int size);
+void		ft_free_mat_tcomplex(t_complex **mat, int size);
+int			**ft_malloc_mat_int(int x, int y);
+int			**ft_malloc_mat_tcomplex(int x, int y);
 
 #endif
