@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 17:15:31 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:38:50 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void put_color_image(t_image img, int **iter_map, int *pal)
 	int		x;
 	int		y;
 	int		offset;
-	double	norm_iter;
+	double	norm;
 
 	x = 1;
 	while (x < WIDTH)
@@ -28,10 +28,8 @@ void put_color_image(t_image img, int **iter_map, int *pal)
 			offset = (img.line_len * y) + x * (img.bpp / 8);
 			if (iter_map[y][x] != MAXITER)
 			{
-				norm_iter = (double)iter_map[y][x] / MAXITER * 10;
-				//printf("iter normalized: %f\n", norm_iter);
-				*(int *)(img.addr + offset) = interpolated_color(norm_iter, pal);
-				//*(int *)(img.addr + offset) = YELLOW + (int)norm_iter * 0 + pal[0] * 0;
+				norm = (double)iter_map[y][x] / MAXITER * 10;
+				*(int *)(img.addr + offset) = interpolated_color(norm, pal);
 			}	
 			else
 				*(int *)(img.addr + offset) = BLACK;

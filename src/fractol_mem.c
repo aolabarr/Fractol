@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:15:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 14:14:39 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:42:15 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void    ft_free_mat_int(int **mat, int size)
 {
     int i;
 
+	if (!mat)
+		return ;
     i = 0;
     while (i < size)
         free(mat[i++]);
@@ -28,9 +30,11 @@ void    ft_free_mat_tcomplex(t_complex **mat, int size)
 {
     int i;
 
+	if (!mat)
+		return ;
     i = 0;
     while (i < size)
-        free(mat[i++]);
+		free(mat[i++]);
     free(mat);
     mat = NULL;
     return ;

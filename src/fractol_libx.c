@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/21 14:53:58 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:29:26 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	initial_set_data(t_mlx_data *data)
 {
 	data->mlx = NULL;
 	data->win = NULL;
+	data->close = 0;
 	data->img.ptr = NULL;
 	data->img.addr = NULL;
 	data->img.bpp = 0;
 	data->img.line_len = 0;
 	data->img.endian = 0;
-	data->img.update = 1;
+	data->update = 1;
 	data->img.com_map = NULL;
 	data->img.iter_map = NULL;
 	return ;

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:47:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 16:23:57 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/22 19:11:46 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int render_mandelbrot(t_mlx_data *data)
 {
-	if (data->img.update == 1)
+    if (data->close == 1)
+        close_window(data);
+	else if (data->update == 1)
 	{
 		if (data->img.ptr)
 			mlx_destroy_image(data->mlx, data->img.ptr);
@@ -29,7 +31,7 @@ int render_mandelbrot(t_mlx_data *data)
 		if (create_mandelbrot_image(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
-        data->img.update = 0;
+        data->update = 0;
 	}
 	return (0);
 }

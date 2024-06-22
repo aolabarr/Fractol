@@ -44,6 +44,8 @@ typedef struct s_mlx_data
 	void	*mlx;
 	void	*win;
 	t_image	img;
+	int		close;
+	int		update;
 }			t_mlx_data;
 
 
@@ -53,13 +55,15 @@ typedef struct s_mlx_data
 
 # define INT_MIN -2147483648
 
-# define WIDTH 100
-# define HEIGHT 100
+# define WIDTH	1500
+# define HEIGHT	1500
 
-# define MAXITER 10
-# define ESC_RAD 4.0
-# define DOM_MIN -2.0
-# define DOM_MAX 2
+# define MAXITER	100
+# define ESC_RAD	4.0
+# define DOM_MIN	-2.0
+# define DOM_MAX	2.0
+
+# define CLOSE_WINDOW 17
 
 //Color palette - divergent points
 #define COLOR_0  0x00FFFF  // Cyan
@@ -94,19 +98,22 @@ typedef struct s_mlx_data
 int			mandelbrot(void);
 void		julia(void);
 
+int	close_window(t_mlx_data *data);
+
 // MANDELBROT
 int			render_mandelbrot(t_mlx_data *data);
-int			handle_key_input_mandel(int key, t_mlx_data *data);
 int			create_mandelbrot_image(t_mlx_data *data);
+int     	get_iter_map(t_mlx_data *data);
+int			get_complex_map(t_mlx_data *data);
+int			mandel_iterations(t_complex c);
 
 // LIBX
 void		initial_set_data(t_mlx_data *data);
 void		*new_window(t_mlx_data *data, char *title);
 
 // MANDELBROT 2
-int     	get_iter_map(t_mlx_data *data);
-int			get_complex_map(t_mlx_data *data);
-int			mandel_iterations(t_complex c);
+int			handle_key_input_mandel(int key, t_mlx_data *data);
+int			handle_close(t_mlx_data *data);
 
 
 // COLOR
