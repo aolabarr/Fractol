@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 17:38:50 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 11:39:50 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void put_color_image(t_image img, int **iter_map, int *pal)
 			if (iter_map[y][x] != MAXITER)
 			{
 				norm = (double)iter_map[y][x] / MAXITER * 10;
-				*(int *)(img.addr + offset) = interpolated_color(norm, pal);
+				*(int *)(img.addr + offset) = interpol_bezier(norm, pal);
+				//*(int *)(img.addr + offset) = interpol_linear(norm, pal);
 			}	
 			else
 				*(int *)(img.addr + offset) = BLACK;
@@ -58,7 +59,18 @@ int *color_palette(void)
 	colors[10] = COLOR_10;
 	return (colors);
 }
-int	interpolated_color(double value, int *palette)
+int interpolate_color(double value, int *palette)
+{
+	int color;
+
+	if (ft_strncmp(INTERPOLATE_TYPE, "linear", ft_strlen("linear")))
+		color = interpol_linear(value, palette);
+	else if (ft_strncmp(INTERPOLATE_TYPE, "bezier", ft_strlen("bezier")))
+		color = interpol_bezier(value, palette);
+	return (color);
+}
+
+int	interpol_linear(double value, int *palette)
 {
 	double	c1;
 	double	c2;
@@ -69,3 +81,25 @@ int	interpolated_color(double value, int *palette)
 	color = (int)trunc(c1 + (c2 - c1) * (value - trunc(value)));
 	return (color);
 }
+
+int	interpol_bezier(double value, int *palette)
+{
+	double	t;
+	int		i;
+	int		color;
+	int		n;
+
+	t = value / 10;
+	n = PALETTE_SIZE - 1;
+	color = 0;
+	i = 0;
+	while (i <= n)
+	{
+		color += (double)binomial_coeff(PALETTE_SIZE - 1, i) * pow(1 - t, n - i) * pow(t, i) * palette[i];
+		i++;
+	}
+		
+		
+	return (color);
+}
+

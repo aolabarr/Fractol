@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 15:10:42 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 10:48:37 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,22 @@ int	max_int_mat(int **matrix, int x, int y)
         i++;  
     }
     return (max);
+}
+int factorial(int n)
+{
+    int res;
+    int i;
+
+    i = 1;
+    res = 1;
+    while(i++ <= n)
+        res = res * i;
+    return (res);
+}
+double  binomial_coeff(double n, double k)
+{
+    double res;
+
+    res = (double)factorial(n) / (double)(factorial(k) * factorial(n - k));
+    return (res);
 }

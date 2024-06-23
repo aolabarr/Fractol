@@ -65,19 +65,21 @@ typedef struct s_mlx_data
 
 # define CLOSE_WINDOW 17
 
+# define PALETTE_SIZE 11
+# define INTERPOLATE_TYPE "linear"
+
 //Color palette - divergent points
-#define COLOR_0  0x00FFFF  // Cyan
-#define COLOR_1  0x007FFF  // Azure
+#define COLOR_0  0x7FFF00  // Chartreuse
+#define COLOR_1 0x00FF00  // Green
 #define COLOR_2  0x0000FF  // Blue
 #define COLOR_3  0x3F00FF  // Blue-Violet
 #define COLOR_4  0x7F00FF  // Violet
 #define COLOR_5  0xBF00FF  // Purple
-#define COLOR_6  0xFF0000  // Red
-#define COLOR_7  0xFF3F00  // Red-Orange
-#define COLOR_8  0xFF7F00  // Orange
-#define COLOR_9  0xFFBF00  // Amber
-#define COLOR_10 0xFFFF00  // Yellow (near convergence points)
-
+#define COLOR_6  0xFF00FF  // Magenta
+#define COLOR_7  0xFF007F  // Rose
+#define COLOR_8  0xFF0000  // Red
+#define COLOR_9  0xFF7F00  // Orange
+#define COLOR_10  0xFFFF00  // Yellow
 
 //Color palette - covergent points
 #define RED         0xFF0000 // Rojo
@@ -119,15 +121,19 @@ int			handle_close(t_mlx_data *data);
 // COLOR
 void		put_color_image(t_image img, int **iter_map, int *palette);
 int			*color_palette(void);
+int			interpol_bezier(double value, int *palette);
+int			interpol_linear(double value, int *palette);
 
 // MEM
-void	ft_free_mat_int(int **mat, int size);
-void	ft_free_mat_tcomplex(t_complex **mat, int size);
-int		**ft_malloc_mat_int(int x, int y);
-int		**ft_malloc_mat_tcomplex(int x, int y);
-int		interpolated_color(double value, int *palette);
+void		ft_free_mat_int(int **mat, int size);
+void		ft_free_mat_tcomplex(t_complex **mat, int size);
+int			**ft_malloc_mat_int(int x, int y);
+int			**ft_malloc_mat_tcomplex(int x, int y);
+
 //UTILS
 double		pow2(double num);
-int	max_int_mat(int **matrix, int x, int y);
+int			factorial(int n);
+double 		binomial_coeff(double n, double k);
+int			max_int_mat(int **matrix, int x, int y);
 
 #endif
