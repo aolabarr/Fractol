@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:52:19 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 19:13:19 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 17:57:17 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	handle_key_input_mandel(int key, t_mlx_data *data)
 {
 	if (key == XK_Escape || data->close == 1)
 		close_window(data);
+	else if (key == XK_space)
+		set_initial_zoom(data);
+		
 	return (0);
 }
 
@@ -49,3 +52,13 @@ int	close_window(t_mlx_data *data)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
+void	set_initial_zoom(t_mlx_data *data)
+{
+	data->img.domain[0] = DOM_MIN;
+	data->img.domain[1] = DOM_MAX;
+	data->img.domain[2] = DOM_MIN;
+	data->img.domain[3] = DOM_MAX;
+	data->update = 1;
+	return ;
+}
+	

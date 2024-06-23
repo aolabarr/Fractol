@@ -6,7 +6,7 @@
 #    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/06/21 14:30:21 by aolabarr         ###   ########.fr        #
+#    Updated: 2024/06/23 12:44:16 by aolabarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC =	fractol_main.c\
 		fractol_mem.c \
 		fractol_libx.c\
 		fractol_color.c\
+		fractol_events.c\
 		
 SRC_BONUS = 
 

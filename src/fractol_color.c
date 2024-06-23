@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 11:39:50 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 11:47:04 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void put_color_image(t_image img, int **iter_map, int *pal)
 			if (iter_map[y][x] != MAXITER)
 			{
 				norm = (double)iter_map[y][x] / MAXITER * 10;
-				*(int *)(img.addr + offset) = interpol_bezier(norm, pal);
-				//*(int *)(img.addr + offset) = interpol_linear(norm, pal);
+				*(int *)(img.addr + offset) = interpolate_color(norm, pal);
 			}	
 			else
 				*(int *)(img.addr + offset) = BLACK;
@@ -97,9 +96,7 @@ int	interpol_bezier(double value, int *palette)
 	{
 		color += (double)binomial_coeff(PALETTE_SIZE - 1, i) * pow(1 - t, n - i) * pow(t, i) * palette[i];
 		i++;
-	}
-		
-		
+	}	
 	return (color);
 }
 

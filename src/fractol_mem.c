@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:15:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 18:42:15 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 13:10:40 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	**ft_malloc_mat_int(int x, int y)
 	return (map);
 }
 
-int	**ft_malloc_mat_tcomplex(int x, int y)
+t_complex	**ft_malloc_mat_tcomplex(int x, int y)
 {
-	int **map;
+	t_complex **map;
 	int	i;
 
     map = malloc(sizeof(t_complex *) * y);
@@ -72,7 +72,7 @@ int	**ft_malloc_mat_tcomplex(int x, int y)
 	{
 		map[i] = malloc(sizeof(t_complex) * x);
 		if (!map[i])
-			return (ft_free_mat_int(map, i), NULL);
+			return (ft_free_mat_tcomplex(map, i), NULL);
 		i++;
 	}
 	return (map);

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:47:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/22 19:11:46 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:04:48 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,23 @@ int     get_iter_map(t_mlx_data *data)
 
 int   get_complex_map(t_mlx_data *data)
 {
-    //Pero con Zoom hay que cambiar ancho y alto
     t_complex   **map;
     int         x;
     int         y;
+    double		*dom;
 
-    map = malloc(sizeof(t_complex *) * HEIGHT);
-    y = 0;
-    while (y < HEIGHT)
-        map[y++] = malloc(sizeof(t_complex) * WIDTH);
-    map[0][0].real = DOM_MIN;
-    map[0][0].i = DOM_MAX;
+    dom = data->img.domain;
+    map = ft_malloc_mat_tcomplex(WIDTH, HEIGHT);
     y = 0;
     while (y < HEIGHT)
     {
         x = 0;
         while (x < WIDTH)
         {
-            map[y][x].real = DOM_MIN + (DOM_MAX - DOM_MIN) / WIDTH * x;
-            map[y][x].i = DOM_MAX - (DOM_MAX - DOM_MIN) / HEIGHT * y;
+            map[y][x].real = dom[0] + (dom[1] - dom[0]) / WIDTH * x;
+            map[y][x].i = dom[3] - (dom[3] - dom[2]) / HEIGHT * y;
+            //map[y][x].real = DOM_MIN + (DOM_MAX - DOM_MIN) / WIDTH * x;
+            //map[y][x].i = DOM_MAX - (DOM_MAX - DOM_MIN) / HEIGHT * y;
             x++;
         }
         y++;

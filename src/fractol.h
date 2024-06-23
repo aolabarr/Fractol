@@ -37,7 +37,15 @@ typedef struct s_image
 	int			update;
 	int			**iter_map;
 	t_complex	**com_map;
+	double		domain[4];
+	double		escale_factor;
 }				t_image;
+
+typedef struct s_mouse
+{
+	double	x;
+	double	y;
+}			t_mouse;
 
 typedef struct s_mlx_data
 {
@@ -46,6 +54,7 @@ typedef struct s_mlx_data
 	t_image	img;
 	int		close;
 	int		update;
+	t_mouse	mouse;
 }			t_mlx_data;
 
 
@@ -55,22 +64,21 @@ typedef struct s_mlx_data
 
 # define INT_MIN -2147483648
 
-# define WIDTH	1500
-# define HEIGHT	1500
+# define WIDTH	1000
+# define HEIGHT	1000
 
 # define MAXITER	100
 # define ESC_RAD	4.0
 # define DOM_MIN	-2.0
 # define DOM_MAX	2.0
-
-# define CLOSE_WINDOW 17
+# define ESCALE_FACTOR 20
 
 # define PALETTE_SIZE 11
 # define INTERPOLATE_TYPE "linear"
 
 //Color palette - divergent points
 #define COLOR_0  0x7FFF00  // Chartreuse
-#define COLOR_1 0x00FF00  // Green
+#define COLOR_1  0x00FF00  // Green
 #define COLOR_2  0x0000FF  // Blue
 #define COLOR_3  0x3F00FF  // Blue-Violet
 #define COLOR_4  0x7F00FF  // Violet
@@ -116,11 +124,13 @@ void		*new_window(t_mlx_data *data, char *title);
 // MANDELBROT 2
 int			handle_key_input_mandel(int key, t_mlx_data *data);
 int			handle_close(t_mlx_data *data);
+void		set_initial_zoom(t_mlx_data *data);
 
 
 // COLOR
 void		put_color_image(t_image img, int **iter_map, int *palette);
 int			*color_palette(void);
+int			interpolate_color(double value, int *palette);
 int			interpol_bezier(double value, int *palette);
 int			interpol_linear(double value, int *palette);
 
@@ -128,12 +138,16 @@ int			interpol_linear(double value, int *palette);
 void		ft_free_mat_int(int **mat, int size);
 void		ft_free_mat_tcomplex(t_complex **mat, int size);
 int			**ft_malloc_mat_int(int x, int y);
-int			**ft_malloc_mat_tcomplex(int x, int y);
+t_complex	**ft_malloc_mat_tcomplex(int x, int y);
 
 //UTILS
 double		pow2(double num);
 int			factorial(int n);
 double 		binomial_coeff(double n, double k);
 int			max_int_mat(int **matrix, int x, int y);
+
+//EVENTS
+int			mouse_move(int x, int y, t_mlx_data *data);
+int			mouse_button(int button, int x, int y, t_mlx_data *data);
 
 #endif
