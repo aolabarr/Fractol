@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 11:47:04 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:13:05 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ int *color_palette(void)
 int interpolate_color(double value, int *palette)
 {
 	int color;
-
-	if (ft_strncmp(INTERPOLATE_TYPE, "linear", ft_strlen("linear")))
+	
+	color = 0;
+	if (!ft_strncmp(INTERPOLATE_TYPE, "linear", ft_strlen("linear")))
 		color = interpol_linear(value, palette);
-	else if (ft_strncmp(INTERPOLATE_TYPE, "bezier", ft_strlen("bezier")))
+	else if (!ft_strncmp(INTERPOLATE_TYPE, "bezier", ft_strlen("bezier")))
 		color = interpol_bezier(value, palette);
 	return (color);
 }
@@ -75,9 +76,9 @@ int	interpol_linear(double value, int *palette)
 	double	c2;
 	int		color;
 
-	c1 = palette[(int)trunc(value)];
-	c2 = palette[(int)ceil(value)];
-	color = (int)trunc(c1 + (c2 - c1) * (value - trunc(value)));
+	c1 = palette[(int)(value)];
+	c2 = palette[(int)(value) + 1];
+	color = (int)(c1 + (c2 - c1) * (value - (int)(value)));
 	return (color);
 }
 
@@ -94,7 +95,7 @@ int	interpol_bezier(double value, int *palette)
 	i = 0;
 	while (i <= n)
 	{
-		color += (double)binomial_coeff(PALETTE_SIZE - 1, i) * pow(1 - t, n - i) * pow(t, i) * palette[i];
+		color += (double)binomial_coeff(PALETTE_SIZE - 1, i) * ft_pow(1 - t, n - i) * ft_pow(t, i) * palette[i];
 		i++;
 	}	
 	return (color);

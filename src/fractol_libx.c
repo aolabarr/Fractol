@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 16:02:01 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:24:22 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ void	initial_set_data(t_mlx_data *data)
 	data->img.line_len = 0;
 	data->img.endian = 0;
 	data->update = 1;
-	data->img.com_map = NULL;
 	data->img.iter_map = NULL;
 	data->img.domain[0] = DOM_MIN;
 	data->img.domain[1] = DOM_MAX;
 	data->img.domain[2] = DOM_MIN;
 	data->img.domain[3] = DOM_MAX;
-	data->img.escale_factor = ESCALE_FACTOR;
+	data->img.zoom = ZOOM_FACTOR;
 	return ;
 }
 

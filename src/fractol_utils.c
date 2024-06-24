@@ -6,15 +6,24 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 10:48:37 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:26:50 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double pow2(double num)
+double ft_pow(double num, int pow)
 {
-    return (num * num);
+    int i;
+    double res;
+
+    if (pow == 0)
+        return (1);
+    res = 1;
+    i = 0;
+    while (i++ < pow)
+        res = res * num;
+    return (res);
 }
 
 int	max_int_mat(int **matrix, int x, int y)

@@ -36,9 +36,8 @@ typedef struct s_image
 	int			endian;
 	int			update;
 	int			**iter_map;
-	t_complex	**com_map;
 	double		domain[4];
-	double		escale_factor;
+	double		zoom;
 }				t_image;
 
 typedef struct s_mouse
@@ -67,11 +66,13 @@ typedef struct s_mlx_data
 # define WIDTH	1000
 # define HEIGHT	1000
 
-# define MAXITER	100
+# define MAXITER	500
 # define ESC_RAD	4.0
 # define DOM_MIN	-2.0
 # define DOM_MAX	2.0
-# define ESCALE_FACTOR 20
+# define ZOOM_FACTOR 20
+# define ARROW_MOVE 0.1
+
 
 # define PALETTE_SIZE 11
 # define INTERPOLATE_TYPE "linear"
@@ -125,6 +126,7 @@ void		*new_window(t_mlx_data *data, char *title);
 int			handle_key_input_mandel(int key, t_mlx_data *data);
 int			handle_close(t_mlx_data *data);
 void		set_initial_zoom(t_mlx_data *data);
+void		set_traslation_move(t_mlx_data *data, int key);
 
 
 // COLOR
@@ -136,12 +138,10 @@ int			interpol_linear(double value, int *palette);
 
 // MEM
 void		ft_free_mat_int(int **mat, int size);
-void		ft_free_mat_tcomplex(t_complex **mat, int size);
 int			**ft_malloc_mat_int(int x, int y);
-t_complex	**ft_malloc_mat_tcomplex(int x, int y);
 
 //UTILS
-double		pow2(double num);
+double 		ft_pow(double num, int pow);
 int			factorial(int n);
 double 		binomial_coeff(double n, double k);
 int			max_int_mat(int **matrix, int x, int y);

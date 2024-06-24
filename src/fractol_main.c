@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 17:14:51 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:51:10 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int mandelbrot(void)
 	t_mlx_data	data;
 
 	initial_set_data(&data);
-	data.mlx = mlx_init();
-	if (!data.mlx)
+	data.mlx = mlx_init();	if (!data.mlx)
 		return (MALLOC_ERROR);
 	if (!new_window(&data, "Mandelbrot Fractal"))
 		return (MALLOC_ERROR);

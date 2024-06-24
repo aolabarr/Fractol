@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:00:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/23 18:09:08 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:27:20 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	mouse_button(int key, int x, int y, t_mlx_data *data)
 	cur = data->img.domain;
 	pos[0] = (cur[1] - cur[0]) / WIDTH * x + cur[0];
 	pos[1] = (cur[3] - cur[2]) / HEIGHT * y + cur[2];
-	fact = (cur[1] - cur[0]) * data->img.escale_factor / 100;
+	fact = (cur[1] - cur[0]) * data->img.zoom / 100;
 	dx = (pos[0] - cur[0]) / (cur[1] - cur[0]);
 	dy = (pos[1] - cur[2]) / (cur[3] - cur[2]);
 
@@ -48,10 +48,6 @@ int	mouse_button(int key, int x, int y, t_mlx_data *data)
 		data->img.domain[1] = cur[1] + fact * (1 - dx);
 		data->img.domain[2] = cur[2] - fact * dy;
 		data->img.domain[3] = cur[3] + fact * (1 - dy);
-		if (data->img.domain[0] < DOM_MIN || data->img.domain[1] > DOM_MAX)
-			set_initial_zoom(data);
-		if (data->img.domain[2] < DOM_MIN || data->img.domain[3] > DOM_MAX)
-			set_initial_zoom(data);
 	}
 	data->update = 1;
 	return (0);
