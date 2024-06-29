@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:13:34 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/24 17:27:11 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:50:51 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int render_mandelbrot(t_mlx_data *data)
 											&data->img.bpp,
 											&data->img.line_len,
 											&data->img.endian);
-		//printf("IMG - %p\t%d\t%d\t%d\n",data->img.addr, data->img.line_len, data->img.bpp, data->img.endian);
 		data->img.iter_map = NULL;
 		if (create_mandelbrot_image(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
@@ -37,46 +36,30 @@ int render_mandelbrot(t_mlx_data *data)
 
 int    create_mandelbrot_image(t_mlx_data *data)
 {
-    int *palette;
-    
-	if (get_iter_map(data) == MALLOC_ERROR)
-		return (MALLOC_ERROR);
-    palette = color_palette();
-	if (!palette)
-		return (MALLOC_ERROR);
-	put_color_image(data->img, data->img.iter_map, palette);
-    free(palette);
-    ft_free_mat_int(data->img.iter_map, HEIGHT);
-    data->img.iter_map = NULL;
+    int			x;
+	int			y;
+	
+	x = 1;
+	while (x < WIDTH)
+	{
+		y = 1;
+		while (y < HEIGHT)
+		{
+			put_color_pixel(data->img, x, y);	
+			y++;
+		}
+		x++;
+	}		
     return (0);
 }
-int     get_iter_map(t_mlx_data *data)
-{
-    t_complex	c;
-	double		*dom;
-    int			**map;
-    int			x;
-    int			y;
 
-	map = ft_malloc_mat_int(WIDTH, HEIGHT);
-	if (!map)
-		return (MALLOC_ERROR);
-	dom = data->img.domain;
-    y = 0;
-    while (y < HEIGHT)
-    {
-        x = 0;
-        while (x < WIDTH)
-        {
-			c.real = dom[0] + (dom[1] - dom[0]) / WIDTH * x;
-            c.i = dom[3] - (dom[3] - dom[2]) / HEIGHT * y;
-            map[y][x] = mandel_iterations(c);
-            x++;
-        }
-        y++;
-    }
-	data->img.iter_map = map;
-    return (0);
+t_complex	get_complex(double *dom, int x, int y)
+{
+	t_complex	c;
+
+	c.real = dom[0] + (dom[1] - dom[0]) / WIDTH * x;
+    c.i = dom[3] - (dom[3] - dom[2]) / HEIGHT * y;
+	return (c);
 }
 
 int mandel_iterations(t_complex C)

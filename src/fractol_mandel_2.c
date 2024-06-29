@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:52:19 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/24 17:27:14 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:03:45 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	close_window(t_mlx_data *data)
 	{
 		mlx_destroy_image(data->mlx, data->img.ptr);
 		data->img.ptr = NULL;
+	}
+	if (data->img.palette)
+	{
+		free(data->img.palette);
+		data->img.palette = NULL;
 	}
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);

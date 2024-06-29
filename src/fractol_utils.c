@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/24 17:26:50 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:46:25 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,4 @@ double  binomial_coeff(double n, double k)
     res = (double)factorial(n) / (double)(factorial(k) * factorial(n - k));
     return (res);
 }
+

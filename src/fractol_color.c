@@ -6,58 +6,32 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/24 16:13:05 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:50:27 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void put_color_image(t_image img, int **iter_map, int *pal)
+void	put_color_pixel(t_image img, int x, int y)
 {
-	int		x;
-	int		y;
-	int		offset;
-	double	norm;
-
-	x = 1;
-	while (x < WIDTH)
+	int			offset;
+	int			iter;
+	double		norm;
+	
+	offset = (img.line_len * y) + x * (img.bpp / 8);
+    iter = mandel_iterations(get_complex(img.domain, x, y));
+	if (iter != MAXITER)
 	{
-		y = 1;
-		while (y < HEIGHT)
-		{	
-			offset = (img.line_len * y) + x * (img.bpp / 8);
-			if (iter_map[y][x] != MAXITER)
-			{
-				norm = (double)iter_map[y][x] / MAXITER * 10;
-				*(int *)(img.addr + offset) = interpolate_color(norm, pal);
-			}	
-			else
-				*(int *)(img.addr + offset) = BLACK;
-			y++;
-		}
-		x++;
-	}		
+		norm = (double)iter / MAXITER * 10;
+		*(int *)(img.addr + offset) = interpolate_color(norm, img.palette);
+	}	
+	else
+		*(int *)(img.addr + offset) = BLACK;
+	return ;
 }
-int *color_palette(void)
-{
-	int	*colors;
 
-	colors = malloc(sizeof(int) * 11);
-	if (!colors)
-		return (NULL);
-	colors[0] = COLOR_0;
-	colors[1] = COLOR_1;
-	colors[2] = COLOR_2;
-	colors[3] = COLOR_3;
-	colors[4] = COLOR_4;
-	colors[5] = COLOR_5;
-	colors[6] = COLOR_6;
-	colors[7] = COLOR_7;
-	colors[8] = COLOR_8;
-	colors[9] = COLOR_9;
-	colors[10] = COLOR_10;
-	return (colors);
-}
+
+
 int interpolate_color(double value, int *palette)
 {
 	int color;

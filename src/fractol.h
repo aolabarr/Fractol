@@ -38,6 +38,7 @@ typedef struct s_image
 	int			**iter_map;
 	double		domain[4];
 	double		zoom;
+	int			*palette;
 }				t_image;
 
 typedef struct s_mouse
@@ -59,14 +60,15 @@ typedef struct s_mlx_data
 
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
-# define INPUT_MESSAGE "instrucciones"
+# define INPUT_MESSAGE "instrucciones\n"
+# define MALLOC_MESSAGE "Malloc error: memory alocate failure\n"
 
 # define INT_MIN -2147483648
 
 # define WIDTH	1000
 # define HEIGHT	1000
 
-# define MAXITER	500
+# define MAXITER	200
 # define ESC_RAD	4.0
 # define DOM_MIN	-2.0
 # define DOM_MAX	2.0
@@ -107,16 +109,14 @@ typedef struct s_mlx_data
 
 
 int			mandelbrot(void);
-void		julia(void);
-
-int	close_window(t_mlx_data *data);
+int			julia(void);
+int			color_palette(t_mlx_data *data);
 
 // MANDELBROT
 int			render_mandelbrot(t_mlx_data *data);
 int			create_mandelbrot_image(t_mlx_data *data);
-int     	get_iter_map(t_mlx_data *data);
-int			get_complex_map(t_mlx_data *data);
 int			mandel_iterations(t_complex c);
+t_complex	get_complex(double *dom, int x, int y);
 
 // LIBX
 void		initial_set_data(t_mlx_data *data);
@@ -127,14 +127,13 @@ int			handle_key_input_mandel(int key, t_mlx_data *data);
 int			handle_close(t_mlx_data *data);
 void		set_initial_zoom(t_mlx_data *data);
 void		set_traslation_move(t_mlx_data *data, int key);
-
+int			close_window(t_mlx_data *data);
 
 // COLOR
-void		put_color_image(t_image img, int **iter_map, int *palette);
-int			*color_palette(void);
 int			interpolate_color(double value, int *palette);
 int			interpol_bezier(double value, int *palette);
 int			interpol_linear(double value, int *palette);
+void		put_color_pixel(t_image img, int x, int y);
 
 // MEM
 void		ft_free_mat_int(int **mat, int size);
