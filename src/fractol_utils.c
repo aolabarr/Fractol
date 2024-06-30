@@ -6,16 +6,16 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/29 16:46:25 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:40:40 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double ft_pow(double num, int pow)
+float ft_pow(float num, int pow)
 {
     int i;
-    double res;
+    float res;
 
     if (pow == 0)
         return (1);
@@ -26,27 +26,6 @@ double ft_pow(double num, int pow)
     return (res);
 }
 
-int	max_int_mat(int **matrix, int x, int y)
-{
-	int max;
-    int i;
-    int j;
-
-	max = INT_MIN;
-    i = 0;
-    while (i < y)
-    {
-        j = 0;
-        while (j < x)
-        {
-            if (matrix[j][i] > max)
-                max = matrix[j][i];
-            j++;
-        }
-        i++;  
-    }
-    return (max);
-}
 int factorial(int n)
 {
     int res;
@@ -58,11 +37,11 @@ int factorial(int n)
         res = res * i;
     return (res);
 }
-double  binomial_coeff(double n, double k)
+float  binomial_coeff(float n, float k)
 {
-    double res;
+    float res;
 
-    res = (double)factorial(n) / (double)(factorial(k) * factorial(n - k));
+    res = (float)factorial(n) / (float)(factorial(k) * factorial(n - k));
     return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:13:34 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/29 16:50:51 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 12:34:10 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int    create_mandelbrot_image(t_mlx_data *data)
     return (0);
 }
 
-t_complex	get_complex(double *dom, int x, int y)
+t_complex	get_complex(float *dom, int x, int y)
 {
 	t_complex	c;
 
@@ -65,7 +65,7 @@ t_complex	get_complex(double *dom, int x, int y)
 int mandel_iterations(t_complex C)
 {
     int         iter;
-    double      mod_pw2;
+    float      mod_pw2;
     t_complex   Z;
     t_complex   aux;
 

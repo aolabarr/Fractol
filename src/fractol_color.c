@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/29 16:50:27 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:14:58 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void	put_color_pixel(t_image img, int x, int y)
 {
 	int			offset;
 	int			iter;
-	double		norm;
+	float		norm;
 	
 	offset = (img.line_len * y) + x * (img.bpp / 8);
     iter = mandel_iterations(get_complex(img.domain, x, y));
 	if (iter != MAXITER)
 	{
-		norm = (double)iter / MAXITER * 10;
+		norm = (float)iter / MAXITER * 10;
 		*(int *)(img.addr + offset) = interpolate_color(norm, img.palette);
+		//*(int *)(img.addr + offset) = YELLOW;
 	}	
 	else
 		*(int *)(img.addr + offset) = BLACK;
@@ -32,7 +33,7 @@ void	put_color_pixel(t_image img, int x, int y)
 
 
 
-int interpolate_color(double value, int *palette)
+int interpolate_color(float value, int *palette)
 {
 	int color;
 	
@@ -44,10 +45,10 @@ int interpolate_color(double value, int *palette)
 	return (color);
 }
 
-int	interpol_linear(double value, int *palette)
+int	interpol_linear(float value, int *palette)
 {
-	double	c1;
-	double	c2;
+	float	c1;
+	float	c2;
 	int		color;
 
 	c1 = palette[(int)(value)];
@@ -56,20 +57,20 @@ int	interpol_linear(double value, int *palette)
 	return (color);
 }
 
-int	interpol_bezier(double value, int *palette)
+int	interpol_bezier(float value, int *palette)
 {
-	double	t;
-	int		i;
+	float	aux;
 	int		color;
+	int		i;
 	int		n;
 
-	t = value / 10;
 	n = PALETTE_SIZE - 1;
 	color = 0;
 	i = 0;
 	while (i <= n)
 	{
-		color += (double)binomial_coeff(PALETTE_SIZE - 1, i) * ft_pow(1 - t, n - i) * ft_pow(t, i) * palette[i];
+		aux = ft_pow(1 - value / 10, n - i) * ft_pow(value / 10, i) * palette[i];
+		color += (float)binomial_coeff(PALETTE_SIZE - 1, i) * aux;
 		i++;
 	}	
 	return (color);

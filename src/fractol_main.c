@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/29 17:04:21 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:56:34 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int mandelbrot(void)
 		return (MALLOC_ERROR);
 	if (!new_window(&data, "Mandelbrot Fractal"))
 		return (MALLOC_ERROR);
-	mlx_key_hook(data.win, handle_key_input_mandel, &data);
 	mlx_loop_hook(data.mlx, render_mandelbrot, &data);
 	mlx_hook(data.win, DestroyNotify, NoEventMask, handle_close, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, handle_key_input, &data);
 	mlx_hook(data.win, MotionNotify, PointerMotionMask, mouse_move, &data);
 	mlx_hook(data.win, ButtonPress, ButtonPressMask, mouse_button, &data);
 	mlx_loop(data.mlx);
