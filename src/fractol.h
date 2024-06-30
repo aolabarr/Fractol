@@ -49,18 +49,19 @@ typedef struct s_mouse
 
 typedef struct s_mlx_data
 {
-	void	*mlx;
-	void	*win;
-	t_image	img;
-	int		close;
-	int		update;
-	t_mouse	mouse;
+	void		*mlx;
+	void		*win;
+	t_image		img;
+	int			close;
+	int			update;
+	t_mouse		mouse;
+	t_complex	julia;
 }			t_mlx_data;
 
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
 # define INPUT_MESSAGE "instrucciones\n"
-# define MALLOC_MESSAGE "Malloc error: memory alocate failure\n"
+# define MALLOC_MESSAGE "Malloc error: memory allocate failure\n"
 
 //Variable macros
 # define WIDTH				800
@@ -102,7 +103,7 @@ typedef struct s_mlx_data
 
 // MAIN
 int			mandelbrot(void);
-int			julia(void);
+int			julia(t_complex c);
 int			color_palette(t_mlx_data *data);
 
 // MANDELBROT
@@ -110,6 +111,10 @@ int			render_mandelbrot(t_mlx_data *data);
 int			create_mandelbrot_image(t_mlx_data *data);
 int			mandel_iterations(t_complex c);
 t_complex	get_complex(float *dom, int x, int y);
+
+// JULIA
+t_complex   parse_julia(char *real, char *imag);
+int			check_input_error(char *str);
 
 // LIBX
 void		initial_set_data(t_mlx_data *data);

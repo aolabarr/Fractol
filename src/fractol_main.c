@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 10:56:34 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:14 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	if (ac == 2 && !ft_strncmp(av[1], "mandelbrot", ft_strlen(av[1])))
 		stop = mandelbrot();	
 	else if (ac == 4 && !ft_strncmp(av[1], "julia", 10))
-		stop = julia();
+		stop = julia(parse_julia(av[2], av[3]));
 	else
 		return (perror(INPUT_MESSAGE), EXIT_FAILURE);
 	if (stop)
@@ -50,9 +50,10 @@ int mandelbrot(void)
 	return (0);
 }
 
-int julia(void)
+int julia(t_complex c)
 {
 	ft_putstr_fd("Julia fractal INICIO\n", STDOUT_FILENO);
+	printf("complex_0 (%f , %f)\n", c.real, c.i);
 	return (0);
 }
 int	color_palette(t_mlx_data *data)

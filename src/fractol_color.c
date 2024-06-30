@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 10:14:58 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 13:37:09 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	put_color_pixel(t_image img, int x, int y)
 		*(int *)(img.addr + offset) = BLACK;
 	return ;
 }
-
-
 
 int interpolate_color(float value, int *palette)
 {
