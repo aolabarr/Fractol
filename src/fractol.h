@@ -35,7 +35,6 @@ typedef struct s_image
 	int			line_len;
 	int			endian;
 	int			update;
-	int			**iter_map;
 	float		domain[4];
 	float		zoom;
 	int			*palette;
@@ -51,6 +50,7 @@ typedef struct s_mlx_data
 {
 	void		*mlx;
 	void		*win;
+	char		*name;
 	t_image		img;
 	int			close;
 	int			update;
@@ -107,17 +107,18 @@ int			julia(t_complex c);
 int			color_palette(t_mlx_data *data);
 
 // MANDELBROT
-int			render_mandelbrot(t_mlx_data *data);
-int			create_mandelbrot_image(t_mlx_data *data);
+int			render_image(t_mlx_data *data);
+int			create_image(t_mlx_data *data);
 int			mandel_iterations(t_complex c);
 t_complex	get_complex(float *dom, int x, int y);
 
 // JULIA
 t_complex   parse_julia(char *real, char *imag);
 int			check_input_error(char *str);
+int			julia_iterations(t_complex C, t_mouse Z);
 
 // LIBX
-void		initial_set_data(t_mlx_data *data);
+void		initial_set_data(t_mlx_data *data, char *name);
 void		*new_window(t_mlx_data *data, char *title);
 int			handle_close(t_mlx_data *data);
 int			close_window(t_mlx_data *data);
@@ -132,7 +133,7 @@ void		set_static_zoom(t_mlx_data *data, int key);
 int			interpolate_color(float value, int *palette);
 int			interpol_bezier(float value, int *palette);
 int			interpol_linear(float value, int *palette);
-void		put_color_pixel(t_image img, int x, int y);
+void		put_color_pixel(t_mlx_data *data, t_image img, int x, int y);
 
 // MEM
 void		ft_free_mat_int(int **mat, int size);
@@ -146,5 +147,6 @@ float 		binomial_coeff(float n, float k);
 //EVENTS
 int			mouse_move(int x, int y, t_mlx_data *data);
 int			mouse_button(int button, int x, int y, t_mlx_data *data);
+int			mouse_move_render(int x, int y, t_mlx_data *data);
 
 #endif

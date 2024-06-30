@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:14 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:23:51 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int mandelbrot(void)
 {
 	t_mlx_data	data;
 
-	initial_set_data(&data);
+	initial_set_data(&data, "mandelbrot");
 	if (color_palette(&data))
 		return (MALLOC_ERROR);
 	data.mlx = mlx_init();
@@ -41,7 +41,7 @@ int mandelbrot(void)
 		return (MALLOC_ERROR);
 	if (!new_window(&data, "Mandelbrot Fractal"))
 		return (MALLOC_ERROR);
-	mlx_loop_hook(data.mlx, render_mandelbrot, &data);
+	mlx_loop_hook(data.mlx, render_image, &data);
 	mlx_hook(data.win, DestroyNotify, NoEventMask, handle_close, &data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, handle_key_input, &data);
 	mlx_hook(data.win, MotionNotify, PointerMotionMask, mouse_move, &data);
@@ -52,8 +52,22 @@ int mandelbrot(void)
 
 int julia(t_complex c)
 {
-	ft_putstr_fd("Julia fractal INICIO\n", STDOUT_FILENO);
-	printf("complex_0 (%f , %f)\n", c.real, c.i);
+	t_mlx_data	data;
+
+	initial_set_data(&data, "julia");
+	data.julia = c;
+	if (color_palette(&data))
+		return (MALLOC_ERROR);
+	data.mlx = mlx_init();
+	if (!data.mlx)
+		return (MALLOC_ERROR);
+	if (!new_window(&data, "Julia Fractal"))
+		return (MALLOC_ERROR);
+	mlx_loop_hook(data.mlx, render_image, &data);
+	mlx_loop_hook(data.mlx, mouse_move_render, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, handle_key_input, &data);
+	mlx_hook(data.win, DestroyNotify, NoEventMask, handle_close, &data);
+	mlx_loop(data.mlx);
 	return (0);
 }
 int	color_palette(t_mlx_data *data)

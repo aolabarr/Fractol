@@ -6,16 +6,17 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 11:15:25 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:41:55 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	initial_set_data(t_mlx_data *data)
+void	initial_set_data(t_mlx_data *data, char *name)
 {
 	data->mlx = NULL;
 	data->win = NULL;
+	data->name =ft_strdup(name);
 	data->close = 0;
 	data->img.ptr = NULL;
 	data->img.addr = NULL;
@@ -23,7 +24,6 @@ void	initial_set_data(t_mlx_data *data)
 	data->img.line_len = 0;
 	data->img.endian = 0;
 	data->update = 1;
-	data->img.iter_map = NULL;
 	data->img.domain[0] = DOM_MIN;
 	data->img.domain[1] = DOM_MAX;
 	data->img.domain[2] = DOM_MIN;
@@ -62,6 +62,11 @@ int	close_window(t_mlx_data *data)
 	{
 		free(data->img.palette);
 		data->img.palette = NULL;
+	}
+	if (data->name)
+	{
+		free(data->name);
+		data->name = NULL;
 	}
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);

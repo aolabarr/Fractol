@@ -6,20 +6,23 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 13:37:09 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:22:04 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	put_color_pixel(t_image img, int x, int y)
+void	put_color_pixel(t_mlx_data *data, t_image img, int x, int y)
 {
 	int			offset;
 	int			iter;
 	float		norm;
 	
 	offset = (img.line_len * y) + x * (img.bpp / 8);
-    iter = mandel_iterations(get_complex(img.domain, x, y));
+	if (!ft_strncmp(data->name, "mandelbrot", ft_strlen("mandelbrot")))
+    	iter = mandel_iterations(get_complex(img.domain, x, y));
+	if (!ft_strncmp(data->name, "julia", ft_strlen("julia")))
+		iter = julia_iterations(data->julia, data->mouse);
 	if (iter != MAXITER)
 	{
 		norm = (float)iter / MAXITER * 10;

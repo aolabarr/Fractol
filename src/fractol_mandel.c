@@ -6,13 +6,13 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:13:34 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 12:34:10 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:01:07 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int render_mandelbrot(t_mlx_data *data)
+int render_image(t_mlx_data *data)
 {
     if (data->close == 1)
         close_window(data);
@@ -25,8 +25,7 @@ int render_mandelbrot(t_mlx_data *data)
 											&data->img.bpp,
 											&data->img.line_len,
 											&data->img.endian);
-		data->img.iter_map = NULL;
-		if (create_mandelbrot_image(data) == MALLOC_ERROR)
+		if (create_image(data) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
         data->update = 0;
@@ -34,7 +33,7 @@ int render_mandelbrot(t_mlx_data *data)
 	return (0);
 }
 
-int    create_mandelbrot_image(t_mlx_data *data)
+int    create_image(t_mlx_data *data)
 {
     int			x;
 	int			y;
@@ -45,7 +44,7 @@ int    create_mandelbrot_image(t_mlx_data *data)
 		y = 1;
 		while (y < HEIGHT)
 		{
-			put_color_pixel(data->img, x, y);	
+			put_color_pixel(data, data->img, x, y);	
 			y++;
 		}
 		x++;

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:00:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 12:47:32 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:04:21 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ int	mouse_move(int x, int y, t_mlx_data *data)
 	
 	data->mouse.x = x;
 	data->mouse.y = y;
+	return (0);
+}
+
+int	mouse_move_render(int x, int y, t_mlx_data *data)
+{
+	
+	data->mouse.x = x;
+	data->mouse.y = y;
+	data->update = 1;
 	return (0);
 }
 

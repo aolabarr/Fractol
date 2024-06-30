@@ -6,7 +6,7 @@
 #    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/06/30 14:36:15 by aolabarr         ###   ########.fr        #
+#    Updated: 2024/06/30 17:12:07 by aolabarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ LIBMLX_DIR = ./lib/minilibx-linux
 MATH_DIR = /usr/local/lib
 
 SRC =	fractol_main.c\
+		fractol_parse.c\
 		fractol_mandel.c\
 		fractol_julia.c\
 		fractol_keys.c\

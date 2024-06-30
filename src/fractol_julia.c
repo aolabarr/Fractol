@@ -6,38 +6,27 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:41:28 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 15:59:28 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:20:57 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_complex   parse_julia(char *real, char *imag)
+int julia_iterations(t_complex C, t_mouse Z)
 {
-    t_complex   c;
-    
-    if (check_input_error(real) || check_input_error(imag))
-    {
-        perror(INPUT_MESSAGE);
-        exit(EXIT_FAILURE);
-    }
-    c.real = ft_atoi_float(real);
-    c.i = ft_atoi_float(imag);
-    return (c);
-        
-}
+    int         iter;
+    float      mod_pw2;
+    t_mouse   aux;
 
-int check_input_error(char *str)
-{
-    size_t i;
-
-    i = 0;
-    while (i < ft_strlen(str))
+    iter = 0;
+    mod_pw2 = ft_pow(Z.x, 2) + ft_pow(Z.y, 2);
+    while (iter < MAXITER && mod_pw2 < ESC_RAD)
     {
-        if (!(ft_isdigit(str[i]) || str[i] == '.' 
-                || str[i] == '+' || str[i] == '-'))
-            return (EXIT_FAILURE); 
-        i++;
+        aux.x = ft_pow(Z.x, 2) - ft_pow(Z.y, 2) + C.real;
+        aux.y = 2 * Z.x * Z.y + C.i;
+        Z = aux;
+        mod_pw2 = ft_pow(Z.x, 2) + ft_pow(Z.y, 2);
+        iter++;
     }
-    return (0);
+    return (iter);
 }
