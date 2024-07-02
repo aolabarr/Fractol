@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 10:57:24 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 14:33:27 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:05:33 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int	handle_key_input(int key, t_mlx_data *data)
 	{
 		if (data->img.maxiter > MIN_MAXITER)
 			data->img.maxiter -= DELTA_MAXITER;
+	}
+	else if (key == XK_l)
+	{
+		free(data->img.type);
+		data->img.type = ft_strdup(LINEAR);
+	}
+	else if (key == XK_b)
+	{
+		free(data->img.type);
+		data->img.type = ft_strdup(BEZIER);
 	}
 	if (key != XK_Escape)
 		data->update = 1;

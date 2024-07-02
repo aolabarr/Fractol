@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:41:28 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 13:45:42 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:08:57 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int mandel_iterator(t_complex C, int maxiter)
     return (iter);
 }
 
-int julia_iterations(t_complex C, t_complex Z)
+int julia_iterator(t_complex C, t_complex Z, int maxiter)
 {
     int         iter;
     float      mod_pw2;
@@ -42,7 +42,7 @@ int julia_iterations(t_complex C, t_complex Z)
 
     iter = 0;
     mod_pw2 = ft_pow(Z.real, 2) + ft_pow(Z.i, 2);
-    while (iter < MAXITER && mod_pw2 < ESC_RAD)
+    while (iter < maxiter && mod_pw2 < ESC_RAD)
     {
         aux.real = ft_pow(Z.real, 2) - ft_pow(Z.i, 2) + C.real;
         aux.i = 2 * Z.real * Z.i + C.i;

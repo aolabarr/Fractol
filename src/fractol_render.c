@@ -6,14 +6,14 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:36:10 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 13:36:14 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:01:09 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
 int render_image(t_mlx_data *data)
-{
+{	
     if (data->close == 1)
         close_window(data);
 	else if (data->update == 1)
@@ -48,7 +48,9 @@ int    create_image(t_mlx_data *data)
 			y++;
 		}
 		x++;
-	}		
+	}
+	if (data->julia_dinamic == 0)
+		data->julia_dinamic = 1;
     return (0);
 }
 

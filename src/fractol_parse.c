@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:11:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 13:33:27 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:09:58 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@ int check_input_error(char *str)
     i = 0;
     while (i < ft_strlen(str))
     {
-        if (!(ft_isdigit(str[i]) || str[i] == '.' 
-                || str[i] == '+' || str[i] == '-'))
-            return (EXIT_FAILURE);
-        if (!((str[i] == '+' || str[i] == '-') && ft_isdigit(str[i])))
-            return (EXIT_FAILURE);
+        if (!(ft_isdigit(str[i]) || str[i] == '.' || str[i] == '+' || str[i] == '-'))
+        {
+            return (EXIT_FAILURE); 
+        } 
+        if (str[i] == '+' || str[i] == '-')
+		{
+			if (!ft_isdigit(str[i + 1]))
+            	return (EXIT_FAILURE);
+		} 
         i++;
     }
     return (0);

@@ -42,6 +42,7 @@ typedef struct s_image
 	float		zoom;
 	int			*palette;
 	int			maxiter;
+	char		*type;
 }				t_image;
 
 typedef struct s_mouse
@@ -60,6 +61,7 @@ typedef struct s_mlx_data
 	int			update;
 	t_mouse		mouse;
 	t_complex	julia;
+	int			julia_dinamic;
 }			t_mlx_data;
 
 
@@ -70,6 +72,7 @@ typedef struct s_mlx_data
 // Error messages
 # define INPUT_MESSAGE	"instrucciones\n"
 # define MALLOC_MESSAGE	"Malloc error: memory allocate failure\n"
+# define ESC_MESSAGE "ESC key o X button of window has been pressed\n"
 
 // Type of fractals
 # define MANDELBROT		"mandelbrot"
@@ -80,12 +83,14 @@ typedef struct s_mlx_data
 # define WIDTH				800
 # define HEIGHT				800
 # define MAXITER			100
-# define INTERPOLATE_TYPE 	"linear"
+# define BEZIER			 	"bezier"
+# define LINEAR				"linear"
 # define ZOOM_FACTOR 		0.1
 # define ARROW_MOVE 		0.05
 # define DELTA_MAXITER		10
 # define MAX_MAXITER		300
 # define MIN_MAXITER		10
+# define N0_PALLETE			1
 
 //Constant macros
 # define ESC_RAD		4.0
@@ -100,6 +105,9 @@ typedef struct s_mlx_data
 void		init_fractal(t_mlx_data	*data, int ac, char **av);
 int			init_mlx(t_mlx_data	*data);
 int			init_palette(t_mlx_data *data);
+int			palette_1(t_mlx_data *data);
+int			palette_2(t_mlx_data *data);
+int			palette_3(t_mlx_data *data);
 
 // RENDER
 int			render_image(t_mlx_data *data);
@@ -112,7 +120,7 @@ int			check_input_error(char *str);
 
 //EQUATIONS
 int			mandel_iterator(t_complex C, int maxiter);
-int			julia_iterations(t_complex C, t_complex Z);
+int			julia_iterator(t_complex C, t_complex Z, int maxiter);
 
 // LIBX
 void		initial_set_data(t_mlx_data *data);
@@ -127,7 +135,7 @@ void		set_traslation_move(t_mlx_data *data, int key);
 void		set_static_zoom(t_mlx_data *data, int key);
 
 // COLOR
-int			interpolate_color(float value, int *palette);
+int			interpolate_color(char *type, float value, int *palette);
 int			interpol_bezier(float value, int *palette);
 int			interpol_linear(float value, int *palette);
 void		put_color_pixel(t_mlx_data *data, t_image img, int x, int y);
@@ -145,5 +153,6 @@ float 		binomial_coeff(float n, float k);
 int			mouse_move(int x, int y, t_mlx_data *data);
 int			mouse_button(int button, int x, int y, t_mlx_data *data);
 int			mouse_move_render(int x, int y, t_mlx_data *data);
+void		set_mouse_button(t_mlx_data *data, float *dif, float *ratio, int key);
 
 #endif

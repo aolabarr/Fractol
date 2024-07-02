@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 14:32:17 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:09:21 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,33 @@ void	put_color_pixel(t_mlx_data *data, t_image img, int x, int y)
 	float		norm;
 	
 	offset = (img.line_len * y) + x * (img.bpp / 8);
-	if (!ft_strncmp(data->name, "mandelbrot", ft_strlen("mandelbrot")))
+	if (!ft_strncmp(data->name, MANDELBROT, ft_strlen(data->name)))
     	iter = mandel_iterator(get_complex(img.domain, x, y), data->img.maxiter);
-	if (!ft_strncmp(data->name, "julia", ft_strlen("julia")))
-		iter = julia_iterations(data->julia, get_complex(img.domain, x, y));
+	if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
+	{
+		if (data->julia_dinamic == 0)
+			iter = julia_iterator(data->julia, get_complex(img.domain, x, y), data->img.maxiter);
+		else
+			iter = julia_iterator(get_complex(img.domain, data->mouse.x, data->mouse.y), get_complex(img.domain, x, y), data->img.maxiter);		
+	}	
 	if (iter != data->img.maxiter)
 	{
 		norm = (float)iter / data->img.maxiter * 10;
-		*(int *)(img.addr + offset) = interpolate_color(norm, img.palette);
-		//*(int *)(img.addr + offset) = YELLOW;
+		*(int *)(img.addr + offset) = interpolate_color(img.type ,norm, img.palette);
 	}	
 	else
 		*(int *)(img.addr + offset) = BLACK;
 	return ;
 }
 
-int interpolate_color(float value, int *palette)
+int interpolate_color(char *type, float value, int *palette)
 {
 	int color;
 	
 	color = 0;
-	if (!ft_strncmp(INTERPOLATE_TYPE, "linear", ft_strlen("linear")))
+	if (!ft_strncmp(type, LINEAR, ft_strlen(type)))
 		color = interpol_linear(value, palette);
-	else if (!ft_strncmp(INTERPOLATE_TYPE, "bezier", ft_strlen("bezier")))
+	else if (!ft_strncmp(type, BEZIER, ft_strlen(type)))
 		color = interpol_bezier(value, palette);
 	return (color);
 }

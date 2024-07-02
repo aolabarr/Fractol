@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:00:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 13:32:30 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:08:10 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	mouse_button(int key, int x, int y, t_mlx_data *data)
 	dif[1] = (dom[3] - dom[2]) * ZOOM_FACTOR;
 	ratio[0] = (pos[0] - dom[0]) / (dom[1] - dom[0]);
 	ratio[1] = (pos[1] - dom[2]) / (dom[3] - dom[2]);
+	set_mouse_button(data, dif, ratio, key);
+	/*
 	if (key == 4)
 	{
 		data->img.domain[0] = dom[0] + dif[0] * ratio[0];
@@ -58,6 +60,30 @@ int	mouse_button(int key, int x, int y, t_mlx_data *data)
 		data->img.domain[3] = dom[3] + dif[1] * (1- ratio[1]);
 		data->img.zoom = data->img.zoom * (1 + ZOOM_FACTOR);
 	}
+	*/
 	data->update = 1;
 	return (0);
+}
+void	set_mouse_button(t_mlx_data *data, float *dif, float *ratio, int key)
+{
+	float	*dom;
+
+	dom = data->img.domain;
+	if (key == 4)
+	{
+		data->img.domain[0] = dom[0] + dif[0] * ratio[0];
+		data->img.domain[1] = dom[1] - dif[0] * (1- ratio[0]);
+		data->img.domain[2] = dom[2] + dif[1] * ratio[1];
+		data->img.domain[3] = dom[3] - dif[1] * (1- ratio[1]);
+		data->img.zoom = data->img.zoom * (1 - ZOOM_FACTOR);
+	}
+	else if (key == 5)
+	{
+		data->img.domain[0] = dom[0] - dif[0] * ratio[0];
+		data->img.domain[1] = dom[1] + dif[0] * (1- ratio[0]);
+		data->img.domain[2] = dom[2] - dif[1] * ratio[1];
+		data->img.domain[3] = dom[3] + dif[1] * (1- ratio[1]);
+		data->img.zoom = data->img.zoom * (1 + ZOOM_FACTOR);
+	}
+	return ;
 }

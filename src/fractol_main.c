@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 13:33:02 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:39:10 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,32 @@ int init_mlx(t_mlx_data	*data)
 		return (MALLOC_ERROR);
 	if (!new_window(data, data->name))
 		return (MALLOC_ERROR);
+	//printf("00 - julia C: (%f, %f)\n", data->julia.real,data->julia.i);
 	mlx_loop_hook(data->mlx, render_image, data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, handle_close, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, handle_key_input, data);
 	if (!ft_strncmp(data->name, MANDELBROT, ft_strlen(data->name)))
+	{
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
+		mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
+	}	
 	else if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
-		mlx_loop_hook(data->mlx, mouse_move_render, &data);
-	mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
-	mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
+		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move_render, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
 
 int	init_palette(t_mlx_data *data)
+{
+	if (N0_PALLETE == 1)
+		return (palette_1(data));
+	else if (N0_PALLETE == 2)
+		return (palette_2(data));
+	else if (N0_PALLETE == 3)
+		return (palette_3(data));
+	return (0);
+}
+int	palette_1(t_mlx_data *data)
 {
 	int	*colors;
 
@@ -85,6 +97,49 @@ int	init_palette(t_mlx_data *data)
 	colors[8] = COLOR_8;
 	colors[9] = COLOR_9;
 	colors[10] = COLOR_10;
+	data->img.palette = colors;
+	return (0);
+	
+}
+int	palette_2(t_mlx_data *data)
+{
+	int	*colors;
+
+	colors = malloc(sizeof(int) * 11);
+	if (!colors)
+		return (MALLOC_ERROR);
+	colors[0] = COLOR_20;
+	colors[1] = COLOR_21;
+	colors[2] = COLOR_22;
+	colors[3] = COLOR_23;
+	colors[4] = COLOR_24;
+	colors[5] = COLOR_25;
+	colors[6] = COLOR_26;
+	colors[7] = COLOR_27;
+	colors[8] = COLOR_28;
+	colors[9] = COLOR_29;
+	colors[10] = COLOR_30;
+	data->img.palette = colors;
+	return (0);
+}
+int	palette_3(t_mlx_data *data)
+{
+	int	*colors;
+
+	colors = malloc(sizeof(int) * 11);
+	if (!colors)
+		return (MALLOC_ERROR);
+	colors[0] = COLOR_40;
+	colors[1] = COLOR_41;
+	colors[2] = COLOR_42;
+	colors[3] = COLOR_43;
+	colors[4] = COLOR_44;
+	colors[5] = COLOR_45;
+	colors[6] = COLOR_46;
+	colors[7] = COLOR_47;
+	colors[8] = COLOR_48;
+	colors[9] = COLOR_49;
+	colors[10] = COLOR_50;
 	data->img.palette = colors;
 	return (0);
 }
