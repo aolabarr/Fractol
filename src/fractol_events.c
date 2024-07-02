@@ -6,11 +6,11 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:00:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 18:28:02 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:32:30 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 int	mouse_move(int x, int y, t_mlx_data *data)
 {

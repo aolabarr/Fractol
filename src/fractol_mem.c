@@ -6,11 +6,11 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:15:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/24 17:26:34 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:33:20 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 void    ft_free_mat_int(int **mat, int size)
 {

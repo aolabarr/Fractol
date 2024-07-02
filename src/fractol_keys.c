@@ -6,11 +6,11 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 10:57:24 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 12:40:41 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:33:27 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 int	handle_key_input(int key, t_mlx_data *data)
 {
@@ -23,9 +23,16 @@ int	handle_key_input(int key, t_mlx_data *data)
 	else if (key == XK_Up || key == XK_Down)
 		set_traslation_move(data, key);
 	else if (key == PLUS_KEY || key == MINUS_KEY)
-	{
 		set_static_zoom(data, key);
-		
+	else if (key == XK_p)
+	{
+		if (data->img.maxiter < MAX_MAXITER)
+			data->img.maxiter += DELTA_MAXITER;
+	}	
+	else if (key == XK_m)
+	{
+		if (data->img.maxiter > MIN_MAXITER)
+			data->img.maxiter -= DELTA_MAXITER;
 	}
 	if (key != XK_Escape)
 		data->update = 1;
@@ -38,6 +45,7 @@ void	set_initial_zoom(t_mlx_data *data)
 	data->img.domain[1] = DOM_MAX;
 	data->img.domain[2] = DOM_MIN;
 	data->img.domain[3] = DOM_MAX;
+	data->img.maxiter = MAXITER;
 	data->update = 1;
 	return ;
 }

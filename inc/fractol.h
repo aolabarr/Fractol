@@ -13,14 +13,17 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+// Libraries
 #include "../lib/libft/src/libft.h"
+#include "fractol_color.h"
 #include "../lib/minilibx-linux/mlx_int.h"
 #include "../lib/minilibx-linux/mlx.h"
-
-// LIBFT 	stdlib.h unistd.h
-// MINILIBX stdlib.h unistd.h stdio.h string.h fcntl.h
 #include <math.h>
+// Libft: 		stdlib.h unistd.h
+// Minilibx:	stdlib.h unistd.h stdio.h string.h fcntl.h
 
+
+// Types of variables
 typedef struct s_complex
 {
 	float	real;
@@ -38,6 +41,7 @@ typedef struct s_image
 	float		domain[4];
 	float		zoom;
 	int			*palette;
+	int			maxiter;
 }				t_image;
 
 typedef struct s_mouse
@@ -58,10 +62,19 @@ typedef struct s_mlx_data
 	t_complex	julia;
 }			t_mlx_data;
 
+
+// Control parameters
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
-# define INPUT_MESSAGE "instrucciones\n"
-# define MALLOC_MESSAGE "Malloc error: memory allocate failure\n"
+
+// Error messages
+# define INPUT_MESSAGE	"instrucciones\n"
+# define MALLOC_MESSAGE	"Malloc error: memory allocate failure\n"
+
+// Type of fractals
+# define MANDELBROT		"mandelbrot"
+# define JULIA			"julia"
+# define NEWTON			"newton"
 
 //Variable macros
 # define WIDTH				800
@@ -70,6 +83,9 @@ typedef struct s_mlx_data
 # define INTERPOLATE_TYPE 	"linear"
 # define ZOOM_FACTOR 		0.1
 # define ARROW_MOVE 		0.05
+# define DELTA_MAXITER		10
+# define MAX_MAXITER		300
+# define MIN_MAXITER		10
 
 //Constant macros
 # define ESC_RAD		4.0
@@ -80,45 +96,26 @@ typedef struct s_mlx_data
 # define MINUS_KEY		65451
 
 
-//Color palette - divergent points
-#define COLOR_0  0x7FFF00  // Chartreuse
-#define COLOR_1  0x00FF00  // Green
-#define COLOR_2  0x0000FF  // Blue
-#define COLOR_3  0x3F00FF  // Blue-Violet
-#define COLOR_4  0x7F00FF  // Violet
-#define COLOR_5  0xBF00FF  // Purple
-#define COLOR_6  0xFF00FF  // Magenta
-#define COLOR_7  0xFF007F  // Rose
-#define COLOR_8  0xFF0000  // Red
-#define COLOR_9  0xFF7F00  // Orange
-#define COLOR_10  0xFFFF00  // Yellow
-
-//Color palette - covergent points
-#define GREEN       0x00FF00 // Verde
-#define YELLOW      0xFFFF00 // Amarillo
-#define ORANGE      0xFFA500 // Naranja
-#define PINK        0xFFC0CB // Rosa
-#define TEAL        0x008080 // Verde azulado
-#define BLACK       0x000000 // Negro
-
 // MAIN
-int			mandelbrot(void);
-int			julia(t_complex c);
-int			color_palette(t_mlx_data *data);
+void		init_fractal(t_mlx_data	*data, int ac, char **av);
+int			init_mlx(t_mlx_data	*data);
+int			init_palette(t_mlx_data *data);
 
-// MANDELBROT
+// RENDER
 int			render_image(t_mlx_data *data);
 int			create_image(t_mlx_data *data);
-int			mandel_iterations(t_complex c);
 t_complex	get_complex(float *dom, int x, int y);
 
-// JULIA
-t_complex   parse_julia(char *real, char *imag);
+// PARSE
+void		parse_julia(t_mlx_data *data, char *real, char *imag);
 int			check_input_error(char *str);
-int			julia_iterations(t_complex C, t_mouse Z);
+
+//EQUATIONS
+int			mandel_iterator(t_complex C, int maxiter);
+int			julia_iterations(t_complex C, t_complex Z);
 
 // LIBX
-void		initial_set_data(t_mlx_data *data, char *name);
+void		initial_set_data(t_mlx_data *data);
 void		*new_window(t_mlx_data *data, char *title);
 int			handle_close(t_mlx_data *data);
 int			close_window(t_mlx_data *data);

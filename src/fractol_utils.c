@@ -6,11 +6,11 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:48:20 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 10:40:40 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:33:49 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 float ft_pow(float num, int pow)
 {

@@ -6,71 +6,68 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 18:23:51 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:33:02 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 int	main(int ac, char **av)
 {
-	int	stop;
+	int			exit_value;
+	t_mlx_data	data;
 	
 	if (ac < 2)
 		return (EXIT_SUCCESS);
-	if (ac == 2 && !ft_strncmp(av[1], "mandelbrot", ft_strlen(av[1])))
-		stop = mandelbrot();	
-	else if (ac == 4 && !ft_strncmp(av[1], "julia", 10))
-		stop = julia(parse_julia(av[2], av[3]));
-	else
-		return (perror(INPUT_MESSAGE), EXIT_FAILURE);
-	if (stop)
+	init_fractal(&data, ac, av);
+	exit_value = init_mlx(&data);
+	if (exit_value == MALLOC_ERROR)
 		return (perror(MALLOC_MESSAGE), EXIT_FAILURE);
+	
 	return (0);
 }
 
-int mandelbrot(void)
+void	init_fractal(t_mlx_data	*data, int ac, char **av)
 {
-	t_mlx_data	data;
-
-	initial_set_data(&data, "mandelbrot");
-	if (color_palette(&data))
-		return (MALLOC_ERROR);
-	data.mlx = mlx_init();
-	if (!data.mlx)
-		return (MALLOC_ERROR);
-	if (!new_window(&data, "Mandelbrot Fractal"))
-		return (MALLOC_ERROR);
-	mlx_loop_hook(data.mlx, render_image, &data);
-	mlx_hook(data.win, DestroyNotify, NoEventMask, handle_close, &data);
-	mlx_hook(data.win, KeyPress, KeyPressMask, handle_key_input, &data);
-	mlx_hook(data.win, MotionNotify, PointerMotionMask, mouse_move, &data);
-	mlx_hook(data.win, ButtonPress, ButtonPressMask, mouse_button, &data);
-	mlx_loop(data.mlx);
-	return (0);
+	if (ac == 2 && !ft_strncmp(av[1], MANDELBROT, ft_strlen(av[1])))
+		data->name = ft_strdup(MANDELBROT);	
+	else if (ac == 4 && !ft_strncmp(av[1], JULIA, ft_strlen(av[1])))
+	{
+		parse_julia(data, av[2], av[3]);
+		data->name = ft_strdup(JULIA);
+	}
+	else
+	{
+        perror(INPUT_MESSAGE);
+        exit(EXIT_FAILURE);
+	}
+	initial_set_data(data);
+	return ;
 }
 
-int julia(t_complex c)
+int init_mlx(t_mlx_data	*data)
 {
-	t_mlx_data	data;
-
-	initial_set_data(&data, "julia");
-	data.julia = c;
-	if (color_palette(&data))
+	if (init_palette(data))
 		return (MALLOC_ERROR);
-	data.mlx = mlx_init();
-	if (!data.mlx)
+	data->mlx = mlx_init();
+	if (!data->mlx)
 		return (MALLOC_ERROR);
-	if (!new_window(&data, "Julia Fractal"))
+	if (!new_window(data, data->name))
 		return (MALLOC_ERROR);
-	mlx_loop_hook(data.mlx, render_image, &data);
-	mlx_loop_hook(data.mlx, mouse_move_render, &data);
-	mlx_hook(data.win, KeyPress, KeyPressMask, handle_key_input, &data);
-	mlx_hook(data.win, DestroyNotify, NoEventMask, handle_close, &data);
-	mlx_loop(data.mlx);
+	mlx_loop_hook(data->mlx, render_image, data);
+	mlx_hook(data->win, DestroyNotify, NoEventMask, handle_close, data);
+	mlx_hook(data->win, KeyPress, KeyPressMask, handle_key_input, data);
+	if (!ft_strncmp(data->name, MANDELBROT, ft_strlen(data->name)))
+		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
+	else if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
+		mlx_loop_hook(data->mlx, mouse_move_render, &data);
+	mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
+	mlx_loop(data->mlx);
 	return (0);
 }
-int	color_palette(t_mlx_data *data)
+
+int	init_palette(t_mlx_data *data)
 {
 	int	*colors;
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_mandel.c                                   :+:      :+:    :+:   */
+/*   fractol_render.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 17:13:34 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/06/30 18:01:07 by aolabarr         ###   ########.fr       */
+/*   Created: 2024/07/02 13:36:10 by aolabarr          #+#    #+#             */
+/*   Updated: 2024/07/02 13:36:14 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../inc/fractol.h"
 
 int render_image(t_mlx_data *data)
 {
@@ -61,25 +61,5 @@ t_complex	get_complex(float *dom, int x, int y)
 	return (c);
 }
 
-int mandel_iterations(t_complex C)
-{
-    int         iter;
-    float      mod_pw2;
-    t_complex   Z;
-    t_complex   aux;
 
-    iter = 0;
-    mod_pw2 = 0;
-    Z.real = 0;
-    Z.i = 0;
-    while (iter < MAXITER && mod_pw2 < ESC_RAD)
-    {
-        aux.real = ft_pow(Z.real, 2) - ft_pow(Z.i, 2) + C.real;
-        aux.i = 2 * Z.real * Z.i + C.i;
-        Z = aux;
-        mod_pw2 = ft_pow(Z.real, 2) + ft_pow(Z.i, 2);
-        iter++;
-    }
-    return (iter);
-}
 
