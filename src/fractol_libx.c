@@ -6,13 +6,13 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 18:05:46 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:44:27 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
-void	initial_set_data(t_mlx_data *data)
+void	initial_set_data(t_data *data)
 {
 	data->mlx = NULL;
 	data->win = NULL;
@@ -34,7 +34,7 @@ void	initial_set_data(t_mlx_data *data)
 	return ;
 }
 
-void	*new_window(t_mlx_data *data, char *title)
+void	*new_window(t_data *data, char *title)
 {
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, title);
 	if (!data->win)
@@ -46,13 +46,13 @@ void	*new_window(t_mlx_data *data, char *title)
 	return (data->win);
 }
 
-int handle_close(t_mlx_data *data)
+int	handle_close(t_data *data)
 {
-    data->close = 1;  
-    return (0);
+	data->close = 1;
+	return (0);
 }
 
-int	close_window(t_mlx_data *data)
+int	close_window(t_data *data)
 {
 	if (data->img.ptr)
 		mlx_destroy_image(data->mlx, data->img.ptr);

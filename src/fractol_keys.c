@@ -6,13 +6,13 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 10:57:24 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 18:05:33 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 09:59:55 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
-int	handle_key_input(int key, t_mlx_data *data)
+int	handle_key_input(int key, t_data *data)
 {
 	if (key == XK_Escape || data->close == 1)
 		close_window(data);
@@ -24,16 +24,8 @@ int	handle_key_input(int key, t_mlx_data *data)
 		set_traslation_move(data, key);
 	else if (key == PLUS_KEY || key == MINUS_KEY)
 		set_static_zoom(data, key);
-	else if (key == XK_p)
-	{
-		if (data->img.maxiter < MAX_MAXITER)
-			data->img.maxiter += DELTA_MAXITER;
-	}	
-	else if (key == XK_m)
-	{
-		if (data->img.maxiter > MIN_MAXITER)
-			data->img.maxiter -= DELTA_MAXITER;
-	}
+	else if (key == XK_p || key == XK_m)
+		set_maxiter(data, key);
 	else if (key == XK_l)
 	{
 		free(data->img.type);
@@ -49,17 +41,34 @@ int	handle_key_input(int key, t_mlx_data *data)
 	return (0);
 }
 
-void	set_initial_zoom(t_mlx_data *data)
+void	set_maxiter(t_data *data, int key)
+{
+	if (key == XK_p)
+	{
+		if (data->img.maxiter < MAX_MAXITER)
+			data->img.maxiter += DELTA_MAXITER;
+	}
+	else if (key == XK_m)
+	{
+		if (data->img.maxiter > MIN_MAXITER)
+			data->img.maxiter -= DELTA_MAXITER;
+	}
+	return ;
+}
+
+void	set_initial_zoom(t_data *data)
 {
 	data->img.domain[0] = DOM_MIN;
 	data->img.domain[1] = DOM_MAX;
 	data->img.domain[2] = DOM_MIN;
 	data->img.domain[3] = DOM_MAX;
 	data->img.maxiter = MAXITER;
+	data->julia_dinamic = 0;
 	data->update = 1;
 	return ;
 }
-void	set_traslation_move(t_mlx_data *data, int key)
+
+void	set_traslation_move(t_data *data, int key)
 {
 	if (key == XK_Left)
 	{
@@ -84,12 +93,12 @@ void	set_traslation_move(t_mlx_data *data, int key)
 	return ;
 }
 
-void	set_static_zoom(t_mlx_data *data, int key)
+void	set_static_zoom(t_data *data, int key)
 {
 	float	*dom;
 	float	dx;
 	float	dy;
-	
+
 	dom = data->img.domain;
 	dx = (dom[1] - dom[0]) * ZOOM_FACTOR;
 	dy = (dom[3] - dom[2]) * ZOOM_FACTOR;
@@ -111,6 +120,3 @@ void	set_static_zoom(t_mlx_data *data, int key)
 	}
 	return ;
 }
-
-
-	

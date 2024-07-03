@@ -6,10 +6,9 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:26:10 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/02 17:59:16 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 09:33:03 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 //Color palette 1 - divergent points
 #define COLOR_0  0x7FFF00  // Chartreuse
@@ -49,8 +48,6 @@
 #define COLOR_48  0xFF007F  // Rosa
 #define COLOR_49    0xFF0000  // Rojo
 #define COLOR_50    0xFFFF00  // Amarillo
-
-
 
 //Color palette - covergent points
 #define GREEN       0x00FF00 // Verde

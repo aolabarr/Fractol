@@ -14,14 +14,14 @@
 # define FRACTOL_H
 
 // Libraries
-#include "../lib/libft/src/libft.h"
-#include "fractol_color.h"
-#include "../lib/minilibx-linux/mlx_int.h"
-#include "../lib/minilibx-linux/mlx.h"
-#include <math.h>
+# include "../lib/libft/src/libft.h"
+# include "fractol_color.h"
+# include "../lib/minilibx-linux/mlx_int.h"
+# include "../lib/minilibx-linux/mlx.h"
+# include <math.h>
+# include <errno.h>
 // Libft: 		stdlib.h unistd.h
 // Minilibx:	stdlib.h unistd.h stdio.h string.h fcntl.h
-
 
 // Types of variables
 typedef struct s_complex
@@ -62,15 +62,20 @@ typedef struct s_mlx_data
 	t_mouse		mouse;
 	t_complex	julia;
 	int			julia_dinamic;
-}			t_mlx_data;
-
+}			t_data;
 
 // Control parameters
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
 
-// Error messages
-# define INPUT_MESSAGE	"instrucciones\n"
+// Messages
+# define INPUT_MESSAGE	"\
+\n******** FRACTOL ********\n\n\
+Introduce correct arguments:\n\n\
+-> ./fractol mandelbrot\n\
+-> ./fractol julia <real> <imag>\n\n\
+****** AND ENJOY ! ******\n\n"
+
 # define MALLOC_MESSAGE	"Malloc error: memory allocate failure\n"
 # define ESC_MESSAGE "ESC key o X button of window has been pressed\n"
 
@@ -100,22 +105,30 @@ typedef struct s_mlx_data
 # define PLUS_KEY		65453
 # define MINUS_KEY		65451
 
-
 // MAIN
-void		init_fractal(t_mlx_data	*data, int ac, char **av);
-int			init_mlx(t_mlx_data	*data);
-int			init_palette(t_mlx_data *data);
-int			palette_1(t_mlx_data *data);
-int			palette_2(t_mlx_data *data);
-int			palette_3(t_mlx_data *data);
+void		init_fractal(t_data	*data, int ac, char **av);
+int			init_mlx(t_data	*data);
+void		handle_perror(void);
+
+//PALETTE
+int			init_palette(t_data *data);
+int			palette_1(t_data *data);
+int			palette_2(t_data *data);
+int			palette_3(t_data *data);
 
 // RENDER
-int			render_image(t_mlx_data *data);
-int			create_image(t_mlx_data *data);
+int			render_image(t_data *data);
+int			create_image(t_data *data);
 t_complex	get_complex(float *dom, int x, int y);
 
+//EVENTS
+int			mouse_move(int x, int y, t_data *data);
+int			mouse_button(int button, int x, int y, t_data *data);
+int			mouse_rend(int x, int y, t_data *data);
+void		set_mouse_button(t_data *data, t_mouse dif, t_mouse ratio, int key);
+
 // PARSE
-void		parse_julia(t_mlx_data *data, char *real, char *imag);
+void		parse_julia(t_data *data, char *real, char *imag);
 int			check_input_error(char *str);
 
 //EQUATIONS
@@ -123,36 +136,32 @@ int			mandel_iterator(t_complex C, int maxiter);
 int			julia_iterator(t_complex C, t_complex Z, int maxiter);
 
 // LIBX
-void		initial_set_data(t_mlx_data *data);
-void		*new_window(t_mlx_data *data, char *title);
-int			handle_close(t_mlx_data *data);
-int			close_window(t_mlx_data *data);
+void		initial_set_data(t_data *data);
+void		*new_window(t_data *data, char *title);
+int			handle_close(t_data *data);
+int			close_window(t_data *data);
 
 // KEYS
-int			handle_key_input(int key, t_mlx_data *data);
-void		set_initial_zoom(t_mlx_data *data);
-void		set_traslation_move(t_mlx_data *data, int key);
-void		set_static_zoom(t_mlx_data *data, int key);
+int			handle_key_input(int key, t_data *data);
+void		set_initial_zoom(t_data *data);
+void		set_traslation_move(t_data *data, int key);
+void		set_static_zoom(t_data *data, int key);
+void		set_maxiter(t_data *data, int key);
 
 // COLOR
 int			interpolate_color(char *type, float value, int *palette);
-int			interpol_bezier(float value, int *palette);
+void		put_color_pixel(t_data *data, t_image img, int x, int y);
+int			get_julia_iters(t_data *data, t_image img, int x, int y);
 int			interpol_linear(float value, int *palette);
-void		put_color_pixel(t_mlx_data *data, t_image img, int x, int y);
+int			interpol_bezier(float value, int *palette);
+
+//UTILS
+float		ft_pow(float num, int pow);
+int			factorial(int n);
+float		binomial_coeff(float n, float k);
 
 // MEM
 void		ft_free_mat_int(int **mat, int size);
 int			**ft_malloc_mat_int(int x, int y);
-
-//UTILS
-float 		ft_pow(float num, int pow);
-int			factorial(int n);
-float 		binomial_coeff(float n, float k);
-
-//EVENTS
-int			mouse_move(int x, int y, t_mlx_data *data);
-int			mouse_button(int button, int x, int y, t_mlx_data *data);
-int			mouse_move_render(int x, int y, t_mlx_data *data);
-void		set_mouse_button(t_mlx_data *data, float *dif, float *ratio, int key);
 
 #endif

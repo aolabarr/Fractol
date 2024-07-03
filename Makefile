@@ -6,7 +6,7 @@
 #    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/07/02 13:36:43 by aolabarr         ###   ########.fr        #
+#    Updated: 2024/07/03 09:27:42 by aolabarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC =	fractol_main.c\
 		fractol_libx.c\
 		fractol_color.c\
 		fractol_events.c\
+		fractol_palette.c\
 		
 SRC_BONUS = 
 
@@ -61,7 +62,7 @@ sanitizer: lib $(OBJ_DIR) $(OBJS)
 
 lib:
 	make -C $(LIBFT_DIR)
-	make -C $(LIBMLX_DIR)
+	make -C $(LIBMLX_DIR) 2> /dev/null
 
 fclean: clean
 	rm -f $(NAME)
