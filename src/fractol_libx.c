@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 10:44:27 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:15:53 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	initial_set_data(t_data *data)
 	data->img.maxiter = MAXITER;
 	data->julia_dinamic = 0;
 	data->img.type = ft_strdup(LINEAR);
+	data->root_ok = 0;
 	return ;
 }
 

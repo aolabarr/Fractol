@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 11:38:12 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:57:17 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	main(int ac, char **av)
 {
-	int		exit_value;
+	int		control;
 	t_data	data;
 
 	if (ac < 2)
 		return (EXIT_SUCCESS);
 	init_fractal(&data, ac, av);
-	exit_value = init_mlx(&data);
-	if (exit_value == MALLOC_ERROR)
+	control = handle_init_mlx(&data);
+	if (control == MALLOC_ERROR)
 		return (handle_perror(), EXIT_FAILURE);
 	return (0);
 }
@@ -34,13 +34,14 @@ void	handle_perror(void)
 
 void	init_fractal(t_data	*data, int ac, char **av)
 {
-	if (ac == 2 && !ft_strncmp(av[1], MANDELBROT, ft_strlen(av[1])))
+	if (ac == 4)
+		parse_input(data, av[2], av[3], av[1]);
+	if (ac == 2 && !ft_strncmp(av[1], MANDELBROT, ft_strlen(MANDELBROT)))
 		data->name = ft_strdup(MANDELBROT);
-	else if (ac == 4 && !ft_strncmp(av[1], JULIA, ft_strlen(av[1])))
-	{
-		parse_julia(data, av[2], av[3]);
+	else if (ac == 4 && !ft_strncmp(av[1], JULIA, ft_strlen(JULIA)))
 		data->name = ft_strdup(JULIA);
-	}
+	else if (ac == 4 && !ft_strncmp(av[1], NEWTON, ft_strlen(NEWTON)))
+		data->name = ft_strdup(NEWTON);
 	else
 	{
 		ft_putstr_fd(INPUT_MESSAGE, STDOUT_FILENO);
@@ -50,7 +51,7 @@ void	init_fractal(t_data	*data, int ac, char **av)
 	return ;
 }
 
-int	init_mlx(t_data	*data)
+int	handle_init_mlx(t_data	*data)
 {
 	if (init_palette(data))
 		return (MALLOC_ERROR);
@@ -69,6 +70,11 @@ int	init_mlx(t_data	*data)
 	}
 	else if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_rend, data);
+	if (!ft_strncmp(data->name, NEWTON, ft_strlen(data->name)))
+	{
+		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
+		mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
+	}
 	mlx_loop(data->mlx);
 	return (0);
 }

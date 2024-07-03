@@ -30,6 +30,12 @@ typedef struct s_complex
 	float	i;
 }			t_complex;
 
+typedef struct s_coef
+{
+	float	c1;
+	float	c2;
+}			t_coef;
+
 typedef struct s_image
 {
 	void		*ptr;
@@ -62,6 +68,9 @@ typedef struct s_mlx_data
 	t_mouse		mouse;
 	t_complex	julia;
 	int			julia_dinamic;
+	int			root_ok;
+	t_complex	roots[3];
+	t_coef		newton;
 }			t_data;
 
 // Control parameters
@@ -85,8 +94,8 @@ Introduce correct arguments:\n\n\
 # define NEWTON			"newton"
 
 //Variable macros
-# define WIDTH				800
-# define HEIGHT				800
+# define WIDTH				500
+# define HEIGHT				500
 # define MAXITER			100
 # define BEZIER			 	"bezier"
 # define LINEAR				"linear"
@@ -104,10 +113,12 @@ Introduce correct arguments:\n\n\
 # define PALETTE_SIZE 	11
 # define PLUS_KEY		65453
 # define MINUS_KEY		65451
+# define PI				3.14159265358979323846
+# define TOL			0.00001
 
 // MAIN
 void		init_fractal(t_data	*data, int ac, char **av);
-int			init_mlx(t_data	*data);
+int			handle_init_mlx(t_data	*data);
 void		handle_perror(void);
 
 //PALETTE
@@ -128,7 +139,7 @@ int			mouse_rend(int x, int y, t_data *data);
 void		set_mouse_button(t_data *data, t_mouse dif, t_mouse ratio, int key);
 
 // PARSE
-void		parse_julia(t_data *data, char *real, char *imag);
+int			parse_input(t_data *data, char *real, char *imag, char *name);
 int			check_input_error(char *str);
 
 //EQUATIONS
@@ -149,9 +160,13 @@ void		set_static_zoom(t_data *data, int key);
 void		set_maxiter(t_data *data, int key);
 
 // COLOR
-int			interpolate_color(char *type, float value, int *palette);
 void		put_color_pixel(t_data *data, t_image img, int x, int y);
-int			get_julia_iters(t_data *data, t_image img, int x, int y);
+int			get_julia_iters(t_data *data, int x, int y);
+int			get_newton_iters(t_data *data, t_coef coefs, t_complex z);
+void		get_newton_roots(t_data *data, t_coef coefs);
+
+// INTERPOLATION
+int			interpolate_color(char *type, float value, int *palette);
 int			interpol_linear(float value, int *palette);
 int			interpol_bezier(float value, int *palette);
 

@@ -6,22 +6,31 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:55:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 09:58:57 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:30:00 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
-void	parse_julia(t_data *data, char *real, char *imag)
+int	parse_input(t_data *data, char *real, char *imag, char *name)
 {
 	if (check_input_error(real) || check_input_error(imag))
 	{
-		perror(INPUT_MESSAGE);
+		ft_putstr_fd(INPUT_MESSAGE, STDOUT_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	data->julia.real = ft_atoi_float(real);
-	data->julia.i = ft_atoi_float(imag);
-	return ;
+	if (!ft_strncmp(name, JULIA, ft_strlen(JULIA)))
+	{
+		data->julia.real = ft_atoi_float(real);
+		data->julia.i = ft_atoi_float(imag);
+	}
+	if (!ft_strncmp(name, NEWTON, ft_strlen(NEWTON)))
+	{
+		data->newton.c1 = ft_atoi_float(real);
+		data->newton.c2 = ft_atoi_float(imag);
+	}
+	
+	return (0);
 }
 
 int	check_input_error(char *str)
