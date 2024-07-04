@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/07/03 13:37:04 by aolabarr         ###   ########.fr        #
+#    Updated: 2024/07/04 02:15:43 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC =	fractol_main.c\
 		fractol_events.c\
 		fractol_palette.c\
 		fractol_interpol.c\
+		fractol_complex.c\
 		
 SRC_BONUS = 
 

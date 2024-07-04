@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol_render.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:36:10 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 09:54:31 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/03 23:48:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	create_image(t_data *data)
 		while (y < HEIGHT)
 		{
 			put_color_pixel(data, data->img, x, y);
+			//printf("point:(%d, %d)\t", x, y);
 			y++;
 		}
 		x++;

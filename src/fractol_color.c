@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:01:45 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 15:18:10 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/04 02:31:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,33 @@ int	get_julia_iters(t_data *data, int x, int y)
 	return (iter);
 }
 
-int	get_newton_iters(t_data *data, t_coef coefs, t_complex z)
+int	get_newton_iters(t_data *data, t_coef cfs, t_complex z0)
 {
 	int			iter;
 	float		mod_0;
 	float		mod_1;
-	float		aux;
+	t_complex	aux;
+	t_complex	div;
+	t_complex	z1;
 
 	if (data->root_ok == 0)
-		get_newton_roots(data, coefs);
-	printf("root 1: (%f, %f)\n", data->roots[0].real,  data->roots[0].i);
+		get_newton_roots(data, cfs);
 	iter = 0;
 	mod_0 = 0;
-	mod_1 = z.real * z.real + z.i * z.i;
-	while (iter < data->img.maxiter && mod_1 - mod_0 > TOL)
+	mod_1 = sqrt(z0.real * z0.real + z0.i * z0.i);
+	while (iter < data->img.maxiter && fabs(mod_1 - mod_0) > TOL)
 	{
-		aux = coefs.c1 * (ft_pow(z.real, 3) - 3 * z.real * ft_pow(z.i, 2) + coefs.c2);
-		z.real = z.real - aux / (3 * coefs.c1 * (ft_pow(z.real, 2) - ft_pow(z.i, 2)));
-		aux = coefs.c1 * (3 * z.i * ft_pow(z.real, 2) - ft_pow(z.i, 3));
-		z.i = z.i - aux / (3 * coefs.c1 * (ft_pow(z.real, 2) - ft_pow(z.i, 2)));
+		aux = ft_cpx_multi_escalar(ft_cpx_pow(z0, 3), cfs.c1);
+		aux = ft_cpx_sum_escalar(aux, cfs.c2);
+		div = ft_cpx_multi_escalar(ft_cpx_pow(z0, 2), 3* cfs.c1);
+		aux = ft_cpx_divide(aux, div);
+		z1.real = z0.real - aux.real;
+		z1.i = z0.i - aux.i;
 		mod_0 = mod_1;
-		mod_1 = z.real * z.real + z.i * z.i;
+		mod_1 = sqrt(z1.real * z1.real + z1.i * z1.i);
+		z0 = z1;
 		iter++;
 	}
-	//printf("iter: %d\tmod: %f\n", iter, mod_1);
 	return (iter);
 }
 void	get_newton_roots(t_data *data, t_coef coefs)
@@ -97,9 +100,8 @@ void	get_newton_roots(t_data *data, t_coef coefs)
 	float		theta;
 	int			i;
 
-	mod = cbrt(coefs.c2 / coefs.c1);
-	theta = - PI;
-	printf("theta: %f\n", theta);
+	mod = fabs(cbrt(coefs.c2 / coefs.c1));
+	theta = 0;
 	i = 0;
 	while (i < 3)
 	{

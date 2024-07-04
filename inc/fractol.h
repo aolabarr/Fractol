@@ -175,6 +175,11 @@ float		ft_pow(float num, int pow);
 int			factorial(int n);
 float		binomial_coeff(float n, float k);
 
+t_complex	ft_cpx_divide(t_complex a, t_complex b);
+t_complex	ft_cpx_pow(t_complex a, int pow);
+t_complex	ft_cpx_multi_escalar(t_complex c, float a);
+t_complex	ft_cpx_sum_escalar(t_complex c, float a);
+
 // MEM
 void		ft_free_mat_int(int **mat, int size);
 int			**ft_malloc_mat_int(int x, int y);
