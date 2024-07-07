@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 10:57:24 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 09:59:55 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 09:31:03 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	set_initial_zoom(t_data *data)
 	data->img.domain[1] = DOM_MAX;
 	data->img.domain[2] = DOM_MIN;
 	data->img.domain[3] = DOM_MAX;
+	data->img.center.real = 0;
+	data->img.center.i = 0;
 	data->img.maxiter = MAXITER;
 	data->julia_dinamic = 0;
-	data->update = 1;
 	return ;
 }
 
@@ -74,21 +75,25 @@ void	set_traslation_move(t_data *data, int key)
 	{
 		data->img.domain[0] += ARROW_MOVE * data->img.zoom;
 		data->img.domain[1] += ARROW_MOVE * data->img.zoom;
+		data->img.center.real += ARROW_MOVE * data->img.zoom;
 	}
 	else if (key == XK_Right)
 	{
 		data->img.domain[0] -= ARROW_MOVE * data->img.zoom;
 		data->img.domain[1] -= ARROW_MOVE * data->img.zoom;
+		data->img.center.real -= ARROW_MOVE * data->img.zoom;
 	}
 	else if (key == XK_Up)
 	{
 		data->img.domain[2] -= ARROW_MOVE * data->img.zoom;
 		data->img.domain[3] -= ARROW_MOVE * data->img.zoom;
+		data->img.center.i -= ARROW_MOVE * data->img.zoom;
 	}
 	else if (key == XK_Down)
 	{
 		data->img.domain[2] += ARROW_MOVE * data->img.zoom;
 		data->img.domain[3] += ARROW_MOVE * data->img.zoom;
+		data->img.center.i += ARROW_MOVE * data->img.zoom;
 	}
 	return ;
 }

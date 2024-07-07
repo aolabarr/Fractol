@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:49:52 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 15:15:53 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 08:53:46 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	initial_set_data(t_data *data)
 	data->img.domain[2] = DOM_MIN;
 	data->img.domain[3] = DOM_MAX;
 	data->img.zoom = 1;
+	data->img.center.real = 0;
+	data->img.center.i = 0;
 	data->img.maxiter = MAXITER;
 	data->julia_dinamic = 0;
 	data->img.type = ft_strdup(LINEAR);

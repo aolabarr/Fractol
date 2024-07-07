@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 14:57:17 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 10:22:00 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,14 @@ int	handle_init_mlx(t_data	*data)
 	mlx_loop_hook(data->mlx, render_image, data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, handle_close, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, handle_key_input, data);
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, handle_scroll, data);
 	if (!ft_strncmp(data->name, MANDELBROT, ft_strlen(data->name)))
-	{
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
-		mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
-	}
+		
 	else if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_rend, data);
-	if (!ft_strncmp(data->name, NEWTON, ft_strlen(data->name)))
-	{
+	else if (!ft_strncmp(data->name, NEWTON, ft_strlen(data->name)))
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
-		mlx_hook(data->win, ButtonPress, ButtonPressMask, mouse_button, data);
-	}
 	mlx_loop(data->mlx);
 	return (0);
 }

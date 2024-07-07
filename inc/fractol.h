@@ -46,6 +46,7 @@ typedef struct s_image
 	int			update;
 	float		domain[4];
 	float		zoom;
+	t_complex	center;
 	int			*palette;
 	int			maxiter;
 	char		*type;
@@ -94,8 +95,8 @@ Introduce correct arguments:\n\n\
 # define NEWTON			"newton"
 
 //Variable macros
-# define WIDTH				500
-# define HEIGHT				500
+# define WIDTH				800
+# define HEIGHT				800
 # define MAXITER			100
 # define BEZIER			 	"bezier"
 # define LINEAR				"linear"
@@ -134,9 +135,10 @@ t_complex	get_complex(float *dom, int x, int y);
 
 //EVENTS
 int			mouse_move(int x, int y, t_data *data);
-int			mouse_button(int button, int x, int y, t_data *data);
+int			handle_scroll(int button, int x, int y, t_data *data);
 int			mouse_rend(int x, int y, t_data *data);
-void		set_mouse_button(t_data *data, t_mouse dif, t_mouse ratio, int key);
+void		set_scroll_button(t_data *data, t_mouse dif, int key);
+void		set_domain(t_data *data, t_mouse dif, float scale);
 
 // PARSE
 int			parse_input(t_data *data, char *real, char *imag, char *name);
