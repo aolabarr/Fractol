@@ -34,6 +34,8 @@ typedef struct s_coef
 {
 	float	c1;
 	float	c2;
+	float	c3;
+	float	c4;
 }			t_coef;
 
 typedef struct s_image
@@ -71,10 +73,12 @@ typedef struct s_mlx_data
 	int			julia_dinamic;
 	int			root_ok;
 	t_complex	roots[3];
+	int			no_root;
 	t_coef		newton;
+	int			newton_tricolor;
 }			t_data;
 
-// Control parameters
+// Exit parameters
 # define EXIT_FAILURE 1
 # define MALLOC_ERROR 1
 
@@ -82,17 +86,36 @@ typedef struct s_mlx_data
 # define INPUT_MESSAGE	"\
 \n******** FRACTOL ********\n\n\
 Introduce correct arguments:\n\n\
--> ./fractol mandelbrot\n\
--> ./fractol julia <real> <imag>\n\n\
+	-> ./fractol mandelbrot\n\n\
+	-> ./fractol julia <real> <imag>\n\n\
+        p.e.: ./fractol julia -0.8  0.156\n\
+              ./fractol julia 0.355 0.355\n\n\
+To see the control set buttons:\n\n\
+	-> ./fractol control\n\n\
 ****** AND ENJOY ! ******\n\n"
 
-# define MALLOC_MESSAGE	"Malloc error: memory allocate failure\n"
-# define ESC_MESSAGE "ESC key o X button of window has been pressed\n"
+# define CONTROL_MESSAGE "\
+\n****************     FRACTOL     ****************\n\n\
+This are the control options:\n\n\
+	-> Traslate image:		Arrows (Up / Down / Left / Rigth)\n\
+	-> Central zoom in / out:	+ / -\n\
+	-> Mouse direction zoom:	Move the mouse scroll button\n\
+	-> More image accuracy:		p	(less render speed)\n\
+	-> Less image accuracy:		m	(more render speed)\n\
+	-> Reset zoom & accuracy:	delete\n\
+	-> Linear color mode:		l\n\
+	-> Bezier color mode:		b	(poor render speed)\n\n\
+	NOTE: Changing the accuracy the color changes\n\n\
+**************     AND ENJOY !     **************\n\n"
+
+# define MALLOC_MESSAGE	"\nMalloc error: memory allocate failure\n"
+# define ESC_MESSAGE "\nESC key o X button of window has been pressed\n"
 
 // Type of fractals
 # define MANDELBROT		"mandelbrot"
 # define JULIA			"julia"
 # define NEWTON			"newton"
+# define CONTROL		"control"
 
 //Variable macros
 # define WIDTH				800
@@ -105,7 +128,7 @@ Introduce correct arguments:\n\n\
 # define DELTA_MAXITER		10
 # define MAX_MAXITER		300
 # define MIN_MAXITER		10
-# define N0_PALLETE			1
+# define N0_PALLETE			2
 
 //Constant macros
 # define ESC_RAD		4.0
@@ -145,6 +168,8 @@ int			parse_input(t_data *data, char *real, char *imag, char *name);
 int			check_input_error(char *str);
 
 //EQUATIONS
+void		put_color_pixel(t_data *data, t_image img, int x, int y);
+int			get_julia_iters(t_data *data, int x, int y);
 int			mandel_iterator(t_complex C, int maxiter);
 int			julia_iterator(t_complex C, t_complex Z, int maxiter);
 
@@ -161,12 +186,6 @@ void		set_traslation_move(t_data *data, int key);
 void		set_static_zoom(t_data *data, int key);
 void		set_maxiter(t_data *data, int key);
 
-// COLOR
-void		put_color_pixel(t_data *data, t_image img, int x, int y);
-int			get_julia_iters(t_data *data, int x, int y);
-int			get_newton_iters(t_data *data, t_coef coefs, t_complex z);
-void		get_newton_roots(t_data *data, t_coef coefs);
-
 // INTERPOLATION
 int			interpolate_color(char *type, float value, int *palette);
 int			interpol_linear(float value, int *palette);
@@ -176,14 +195,5 @@ int			interpol_bezier(float value, int *palette);
 float		ft_pow(float num, int pow);
 int			factorial(int n);
 float		binomial_coeff(float n, float k);
-
-t_complex	ft_cpx_divide(t_complex a, t_complex b);
-t_complex	ft_cpx_pow(t_complex a, int pow);
-t_complex	ft_cpx_multi_escalar(t_complex c, float a);
-t_complex	ft_cpx_sum_escalar(t_complex c, float a);
-
-// MEM
-void		ft_free_mat_int(int **mat, int size);
-int			**ft_malloc_mat_int(int x, int y);
 
 #endif

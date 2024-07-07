@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:41:17 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 10:22:00 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:11:58 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 		return (handle_perror(), EXIT_FAILURE);
 	return (0);
 }
+
 void	handle_perror(void)
 {
 	if (errno == ENOMEM)
@@ -40,8 +41,11 @@ void	init_fractal(t_data	*data, int ac, char **av)
 		data->name = ft_strdup(MANDELBROT);
 	else if (ac == 4 && !ft_strncmp(av[1], JULIA, ft_strlen(JULIA)))
 		data->name = ft_strdup(JULIA);
-	else if (ac == 4 && !ft_strncmp(av[1], NEWTON, ft_strlen(NEWTON)))
-		data->name = ft_strdup(NEWTON);
+	else if (!ft_strncmp(av[1], CONTROL, ft_strlen(CONTROL)))
+	{
+		ft_putstr_fd(CONTROL_MESSAGE, STDOUT_FILENO);
+		exit(EXIT_SUCCESS);
+	}
 	else
 	{
 		ft_putstr_fd(INPUT_MESSAGE, STDOUT_FILENO);
@@ -66,11 +70,8 @@ int	handle_init_mlx(t_data	*data)
 	mlx_hook(data->win, ButtonPress, ButtonPressMask, handle_scroll, data);
 	if (!ft_strncmp(data->name, MANDELBROT, ft_strlen(data->name)))
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
-		
 	else if (!ft_strncmp(data->name, JULIA, ft_strlen(data->name)))
 		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_rend, data);
-	else if (!ft_strncmp(data->name, NEWTON, ft_strlen(data->name)))
-		mlx_hook(data->win, MotionNotify, PointerMotionMask, mouse_move, data);
 	mlx_loop(data->mlx);
 	return (0);
 }

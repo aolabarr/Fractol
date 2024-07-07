@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:08:51 by aolabarr          #+#    #+#              #
-#    Updated: 2024/07/04 02:15:43 by marvin           ###   ########.fr        #
+#    Updated: 2024/07/07 15:38:29 by aolabarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,27 +26,34 @@ LIBFT_DIR = ./lib/libft
 LIBMLX_DIR = ./lib/minilibx-linux
 MATH_DIR = /usr/local/lib
 
-SRC =	fractol_main.c\
-		fractol_parse.c\
-		fractol_render.c\
-		fractol_equations.c\
-		fractol_keys.c\
-		fractol_utils.c\
-		fractol_mem.c \
-		fractol_libx.c\
-		fractol_color.c\
-		fractol_events.c\
-		fractol_palette.c\
-		fractol_interpol.c\
-		fractol_complex.c\
-		
-SRC_BONUS = 
+SRC =	fractol_main.c \
+		fractol_parse.c \
+		fractol_render.c \
+		fractol_equations.c \
+		fractol_keys.c \
+		fractol_utils.c \
+		fractol_libx.c \
+		fractol_events.c \
+		fractol_palette.c \
+		fractol_interpol.c \
+				
+SRC_BONUS = fractol_main_bonus.c \
+			fractol_render_bonus.c \
+			fractol_newton_bonus.c \
+			fractol_complex_bonus.c \
+			
 
-SRC_BONUS_AUX = 
+SRC_BONUS_AUX = fractol_palette.c\
+				fractol_libx.c \
+				fractol_keys.c \
+				fractol_events.c \
+				fractol_interpol.c \
+				fractol_utils.c \
+				fractol_parse.c \
 
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-# OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS)/,$(SRC_BONUS:.c=.o))
-# OBJS_BONUS_AUX = $(addprefix $(OBJ_DIR_BONUS)/,$(SRC_BONUS_AUX:.c=.o))
+OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS)/,$(SRC_BONUS:.c=.o))
+OBJS_BONUS_AUX = $(addprefix $(OBJ_DIR_BONUS)/,$(SRC_BONUS_AUX:.c=.o))
 
 all: lib $(OBJ_DIR) $(NAME)
 
@@ -58,6 +65,20 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)
+
+bonus: lib $(OBJ_DIR_BONUS) $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS) $(OBJS_BONUS_AUX)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(OBJS_BONUS_AUX) -L$(LIBFT_DIR) -L$(LIBMLX_DIR) -L$(MATH_DIR) -lm -lft -lmlx_Linux -lX11 -lXext -o $(NAME_BONUS)
+
+$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c 
+	$(CC) $(NO_LINK) $(CFLAGS) -I$(INC_DIR) $< -o $@
+
+$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(NO_LINK) $(CFLAGS) -I$(INC_DIR) $< -o $@
+
+$(OBJ_DIR_BONUS):
+	mkdir $(OBJ_DIR_BONUS)
 
 sanitizer: lib $(OBJ_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(SFLAGS) $(OBJS) -L$(LIBFT_DIR) -L$(LIMLX_DIR) -lm -lft -llibx-Linux -o $(NAME)
@@ -80,6 +101,5 @@ clean:
 re: fclean all
 
 .PHONY: all fclean clean re lib sanitizer bonus
-
 
 #.SILENT:

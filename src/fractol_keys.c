@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 10:57:24 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 09:31:03 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:11:42 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,6 @@ void	set_maxiter(t_data *data, int key)
 		if (data->img.maxiter > MIN_MAXITER)
 			data->img.maxiter -= DELTA_MAXITER;
 	}
-	return ;
-}
-
-void	set_initial_zoom(t_data *data)
-{
-	data->img.domain[0] = DOM_MIN;
-	data->img.domain[1] = DOM_MAX;
-	data->img.domain[2] = DOM_MIN;
-	data->img.domain[3] = DOM_MAX;
-	data->img.center.real = 0;
-	data->img.center.i = 0;
-	data->img.maxiter = MAXITER;
-	data->julia_dinamic = 0;
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:55:11 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/03 13:30:00 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:45:21 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	parse_input(t_data *data, char *real, char *imag, char *name)
 		data->newton.c1 = ft_atoi_float(real);
 		data->newton.c2 = ft_atoi_float(imag);
 	}
-	
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:00:03 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 10:10:56 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:49:33 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	handle_scroll(int key, int x, int y, t_data *data)
 	float	*dom;
 	t_mouse	pos;
 	t_mouse	dif;
-	//t_mouse	ratio;
 
 	dom = data->img.domain;
 	pos.x = (dom[1] - dom[0]) / WIDTH * x + dom[0];
@@ -47,13 +46,9 @@ int	handle_scroll(int key, int x, int y, t_data *data)
 void	set_scroll_button(t_data *data, t_mouse dif, int key)
 {
 	if (key == 4)
-	{
 		set_domain(data, dif, (1 - ZOOM_FACTOR));
-	}
 	else if (key == 5)
-	{
 		set_domain(data, dif, (1 + ZOOM_FACTOR));
-	}
 	return ;
 }
 

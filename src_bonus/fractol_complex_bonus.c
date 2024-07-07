@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_complex.c                                  :+:      :+:    :+:   */
+/*   fractol_complex_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:31:20 by marvin            #+#    #+#             */
-/*   Updated: 2024/07/04 02:26:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:15:51 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_complex	ft_cpx_divide(t_complex a, t_complex b)
 	c.i = aux / div;
 	return (c);
 }
+
 t_complex	ft_cpx_pow(t_complex a, int pow)
 {
 	int			i;
@@ -46,15 +47,16 @@ t_complex	ft_cpx_pow(t_complex a, int pow)
 
 t_complex	ft_cpx_multi_escalar(t_complex c, float a)
 {
-	t_complex res;
+	t_complex	res;
 
 	res.real = c.real * a;
 	res.i = c.i * a;
 	return (res);
 }
+
 t_complex	ft_cpx_sum_escalar(t_complex c, float a)
 {
-	t_complex res;
+	t_complex	res;
 
 	res.real = c.real + a;
 	res.i = c.i;
