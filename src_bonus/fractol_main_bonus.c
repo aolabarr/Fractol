@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 10:59:50 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 18:21:43 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:38:20 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	main(int ac, char **av)
 	int		control;
 	t_data	data;
 
-	if (ac < 2)
-		return (EXIT_SUCCESS);
 	init_fractal_bonus(&data, ac, av);
 	control = handle_init_mlx_bonus(&data);
 	if (control == MALLOC_ERROR)
@@ -35,11 +33,18 @@ void	handle_perror_bonus(void)
 
 void	init_fractal_bonus(t_data *data, int ac, char **av)
 {
-	if (ac == 4)
+	if (ac == 2 || ac == 4)
 		parse_input_bonus(data, av);
-	if (ac == 4 && !ft_strncmp(av[1], NEWTON, ft_strlen(NEWTON)))
+	else
+	{
+		ft_putstr_fd(INPUT_MESSAGE_BONUS, STDOUT_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	if (ac == 4 && !ft_strncmp(av[1], NEWTON, ft_strlen(NEWTON))
+		&& ft_strlen(av[1]) == ft_strlen(NEWTON))
 		data->name = ft_strdup(NEWTON);
-	else if (!ft_strncmp(av[1], CONTROL, ft_strlen(CONTROL)))
+	else if (!ft_strncmp(av[1], CONTROL, ft_strlen(CONTROL))
+		&& ft_strlen(av[1]) == ft_strlen(CONTROL))
 	{
 		ft_putstr_fd(CONTROL_MESSAGE_BONUS, STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
