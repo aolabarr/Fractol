@@ -56,7 +56,8 @@ Para borrar los objetos y el ejecutable:
 ```sh
 make fclean
 ```
-Para ver la forma corecta de introducir los argumentos al programa y ejecutar satisfactoriamente, ejecutar el mismo programa sin argumentos. El programa devuelve un mesaje con las indiciaciones.
+Para ver la forma correcta de introducir los argumentos al programa y ejecutar satisfactoriamente, 
+**ejecutar el mismo programa sin argumentos. El programa devuelve un mesaje con las indicaciones.**
 
 
 ## Controles
