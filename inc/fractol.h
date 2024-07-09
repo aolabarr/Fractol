@@ -73,7 +73,6 @@ typedef struct s_mlx_data
 	int			julia_dinamic;
 	int			root_ok;
 	t_complex	roots[3];
-	int			no_root;
 	t_coef		newton;
 	int			newton_tricolor;
 }			t_data;

@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 10:53:54 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 18:18:49 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:18:50 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_new_data	get_newton_iters(t_data *data, t_coef coefs, t_complex z0)
 		root = data->roots[i];
 		if (fabs(z.real - root.real) < tol && fabs(z.i - root.i) < tol)
 		{
-			new_data.no_root = i;
+			new_data.no_root = i + 1;
 			break ;
 		}
 		i++;
@@ -74,6 +74,7 @@ t_new_data	newton_iterator(t_data *data, t_coef cfs, t_complex z0)
 	t_complex	fx_prima;
 	t_complex	z1;
 
+	new_data.no_root = 0;
 	new_data.iter = 0;
 	mod[0] = 0;
 	mod[1] = sqrt(z0.real * z0.real + z0.i * z0.i);

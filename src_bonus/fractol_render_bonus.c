@@ -6,7 +6,7 @@
 /*   By: aolabarr <aolabarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 12:05:26 by aolabarr          #+#    #+#             */
-/*   Updated: 2024/07/07 18:18:44 by aolabarr         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:17:30 by aolabarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	put_color_pixel_bonus(t_data *data, t_image img, int x, int y)
 	norm = (float)new_data.iter / data->img.maxiter * 10;
 	if (data->newton_tricolor == 1)
 	{
-		if (new_data.no_root == 0)
+		if (new_data.no_root == 1)
 			color = encode_rgb(255 * (10 - norm), 0, 0);
-		else if (new_data.no_root == 1)
-			color = encode_rgb(0, 255 * (10 - norm), 0);
 		else if (new_data.no_root == 2)
+			color = encode_rgb(0, 255 * (10 - norm), 0);
+		else if (new_data.no_root == 3)
 			color = encode_rgb(0, 0, 255 * (10 - norm));
 	}
 	else
