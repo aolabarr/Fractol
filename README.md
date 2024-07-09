@@ -30,8 +30,7 @@ El fractal de Newton es un fractal que se genera mediante la aplicación del mé
 
 $$ z_{n+1} = z_n - \frac{f(z_n)}{f'(z_n)} $$
 
-donde $f(z)$ es una función analítica y $f'(z)$ es su derivada. Para un polinomio dado, como $f(z) = a*z^3 - b$, las raíces son los puntos en los que la función se anula. El fractal de Newton se forma asignando colores a los puntos del plano complejo dependiendo de a cuál raíz convergen cuando se aplica repetidamente el método de Newton. En resumen, el fractal de Newton para una función $f(z)$ se obtiene iterando la formual de Newton-Raphson y coloreando cada punto $z_0$ según la raíz a la que converge. Como la función es cúbica tiene 3 raices. Sin el `modo tricolor` se dibuja cada punto en función de la velocidad de convergencia. Con el `modo tricolor` activado se pueden ver las convergencias a cada una de las 3 raices.
-
+donde $f(z)$ es una función analítica y $f'(z)$ es su derivada. Para un polinomio dado, como $f(z) = a*z^3 - b$, las raíces son los puntos en los que la función se anula. Los valores de las constantes $a$ y $b$ de deben definir como argumentos del programa. El fractal de Newton se forma asignando colores a los puntos del plano complejo dependiendo de a que raíz converge cuando se aplica repetidamente el método de Newton. En resumen, el fractal de Newton para una función $f(z)$ se obtiene iterando la formula de Newton-Raphson y coloreando cada punto $z_0$ según la raíz a la que converge. Como la función es cúbica tiene 3 raices. Sin el `modo tricolor` se dibuja cada punto en función de la velocidad de convergencia. Con el `modo tricolor` activado se pueden ver las convergencias a cada una de las 3 raices.
 
 ## Compilación y ejecución
 
@@ -59,7 +58,6 @@ make fclean
 Para ver la forma correcta de introducir los argumentos al programa y ejecutar satisfactoriamente, 
 **ejecutar el mismo programa sin argumentos. El programa devuelve un mesaje con las indicaciones.**
 
-
 ## Controles
 
 - **ESC** o cerrar la ventana:      Finaliza el programa.
@@ -82,13 +80,17 @@ Para ver la forma correcta de introducir los argumentos al programa y ejecutar s
 
 ## Imagenes
 
+<h4>Mandelbrot</h4>
 <img src="images/mandelbrot.png" alt="Fractal de Mandelbrot" width="400" height="400">
 
+<h4>Julia (0.355 + 0.355i)</h4>
 <img src="images/Julia_1.png" alt="Fractal de Julia (0.355 + 0.355i)" width="400" height="400">
 
+<h4>Julia (-0.8 + 0.156i)</h4>
 <img src="images/Julia_2.png" alt="Fractal de Julia (-0.8 + 0.156i)" width="400" height="400">
 
+<h4>Newton ; (1, -1) ; modo tricolor activado</h4>
 <img src="images/Newton_1.png" alt="Fractal de Newton (a,b) = (1, -1)" width="400" height="400">
 
+<h4>Newton ; (1, -1) ; modo tricolor desactivado</h4>
 <img src="images/Newton_2.png" alt="Fractal de Newton (a,b) = (1, -1)" width="400" height="400">
-
