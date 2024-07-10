@@ -12,7 +12,7 @@ _Un fractal es un objeto geométrico cuya estructura básica, fragmentada o apar
 
 El conjunto de Mandelbrot es un conjunto de números complejos $(a + bi)$ definido por una iteración particular de una función cuadrática. Un número complejo $c$ pertenece al conjunto de Mandelbrot si, al iterar la función 
 
-<p>$$\f_c(z) = z^2 + c\ $$<p>
+$$f_c(z) = z^2 + c$$
 
 partiendo de $(z = 0)$, la magnitud de $z$ no se vuelve infinita. En otras palabras, el conjunto de Mandelbrot está definido como el conjunto de números complejos $c$ para los cuales la sucesión dada con $(z_0 = 0)$, permanece acotada en magnitud.
 
